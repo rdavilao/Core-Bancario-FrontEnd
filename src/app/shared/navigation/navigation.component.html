@@ -1,0 +1,31 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <a matSubheader [routerLink]="['/client']">Clientes</a>
+            <a class="list-item-margin" mat-list-item [routerLink]="['/client/createClient']">Agregar nuevo</a>
+            <a class="list-item-margin" mat-list-item [routerLink]="['/client/updateClient']">Actualizar cliente</a>
+            <a class="list-item-margin" mat-list-item [routerLink]="['/client/searchClient']">Busqueda de cliente</a>
+            <mat-divider></mat-divider>
+
+            <a matSubheader [routerLink]="['/account']">Cuentas</a>
+            <a class="list-item-margin" mat-list-item [routerLink]="['/account']">Agregar nueva</a>
+            <a class="list-item-margin" mat-list-item [routerLink]="['/account/listAccount']">Listar cuentas</a>
+
+            <mat-divider></mat-divider>
+            <a matSubheader [routerLink]="['/transaction']">Transacciones</a>
+            <a class="list-item-margin " mat-list-item [routerLink]="['/transaction']">Realizar transacciones</a>
+            <a class="list-item-margin " mat-list-item [routerLink]="['/transaction/creditCard']">Listado tarjetas de credito</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <span>Core Banco Banquito</span>
+            <span class="spacer"></span>
+            <img src="assets/logo-bb-2.jpeg" height="100%" />
+        </mat-toolbar>
+        <mat-card class="card">
+            <router-outlet></router-outlet>
+        </mat-card>
+    </mat-sidenav-content>
+</mat-sidenav-container>
