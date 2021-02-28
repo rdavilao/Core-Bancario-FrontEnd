@@ -8,7 +8,6 @@ import { ErrorComponent } from './components/error/error.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
 
 const appRoutes: Routes = [
-    {path: '', component: NavigationComponent},
     {path: 'client', component: ClientComponent},
     {path: 'account', component: AccountComponent},
     {path: 'transaction', component: TransactionComponent},
