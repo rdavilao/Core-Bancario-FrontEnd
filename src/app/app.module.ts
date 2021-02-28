@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { routing, appRoutingProviders } from './app.routing';
@@ -25,7 +27,9 @@ import {SharedStyleModule } from './shared/shared-style/shared-style.module';
     BrowserModule,
     routing,
     BrowserAnimationsModule,
-    SharedStyleModule
+    SharedStyleModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     appRoutingProviders
