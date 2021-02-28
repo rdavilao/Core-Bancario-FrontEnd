@@ -26,4 +26,9 @@ export class TransactionService {
         let headers = new HttpHeaders().set('Content-Type','application/json');
         return this._http.get(urlTransaction+'/listXLastTransactions?identification='+identification+"&limit="+limit,{headers: headers});
     }
+
+    getTransactionsByType(identification: string, limit: number, type: string): Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type','application/json');
+        return this._http.get(urlTransaction+'/listXLastTransactionsByType?identification='+identification+"&limit="+limit+"&type="+type,{headers: headers});
+    }
 }

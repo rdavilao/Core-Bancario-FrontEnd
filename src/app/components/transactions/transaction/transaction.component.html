@@ -9,21 +9,34 @@
         La transaccion se ha podido realizar.
     </div>
     <form #transactionForm="ngForm" (ngSubmit)="onSubmit(transactionForm)">
+
         <p>
-            <label for="identification">Documento de Indentificacion</label>
+            <label>Tipo de transaccion</label>
+            <select name="type" #type="ngModel" [(ngModel)]="transaction.type">
+                <option value="Depósito" selected>Depósito</option>
+                <option value="Retiro">Retiro</option>
+                <option value="Pago">Pago de servicios</option>
+            </select>
+        </p>
+        <p *ngIf="transaction.type=='Pago'">
+            <label>Tipo de pago</label>
+            <select name="typeP" [(ngModel)]="typeP">
+                <option value="luz" selected>Luz</option>
+                <option value="agua">Agua</option>
+                <option value="Internet">Internet</option>
+            </select>
+        </p>
+        <p>
+            <label for="identification" *ngIf="transaction.type=='Pago'">Teléfono convencional</label>
+            <label for="identification" *ngIf="transaction.type!='Pago'">Documento de Indentificacion</label>
             <input type="text" name="identification" #identification="ngModel" [(ngModel)]="transaction.identification" required>
             <span class="form-error" *ngIf="identification.touched && !identification.valid">*Campo obligatorio</span>
         </p>
 
-        <p>
+        <p *ngIf="transaction.type!='Pago'">
             <label for="account">Número de cuenta del beneficiario</label>
             <input type="text" name="account" #account="ngModel" [(ngModel)]="transaction.account" required>
             <span class="form-error" *ngIf="account.touched && !account.valid">*Campo obligatorio</span>
-        </p>
-
-        <p>
-            <label for="type">Tipo de transacción</label>
-            <input type="text" name="type" #type="ngModel" [(ngModel)]="transaction.type">
         </p>
 
         <p>
