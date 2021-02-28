@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Transaction } from '../../models/transaction';
-import { TransactionService } from '../../services/transaction.service';
+import { Transaction } from '../../../models/transaction';
+import { TransactionService } from '../../../services/transaction.service';
 
 @Component({
   selector: 'app-transaction',
@@ -12,6 +12,7 @@ export class TransactionComponent implements OnInit {
 
   public title: string;
   public transaction: Transaction;
+  public status:string;
 
   constructor(
     private _transactionService: TransactionService
@@ -24,10 +25,16 @@ export class TransactionComponent implements OnInit {
   }
 
   onSubmit(form){
-    console.log(this.transaction);
+    
+    this.transaction.description = "La persona con ci: " + this.transaction.identification + " realizó un " + this.transaction.type + " de " + this.transaction.mont + " a la cuenta " + this.transaction.account;
     this._transactionService.saveTransaction(this.transaction).subscribe(
       response => {
-        console.log(response);
+        if(response == null){
+          this.status = 'success';
+          form.reset();
+        }else{
+          this.status = 'failed';
+        }
       },
       error => {
         console.log(<any> error);

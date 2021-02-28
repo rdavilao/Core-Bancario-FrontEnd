@@ -1,5 +1,13 @@
 <div class="container">
     <h2>{{title}}</h2>
+
+    <div class="message success" *ngIf="status == 'success'">
+        La transaccion se ha realizado correctamente.
+    </div>
+
+    <div class="message failed" *ngIf="status == 'failed'">
+        La transaccion se ha podido realizar.
+    </div>
     <form #transactionForm="ngForm" (ngSubmit)="onSubmit(transactionForm)">
         <p>
             <label for="identification">Documento de Indentificacion</label>
@@ -16,11 +24,6 @@
         <p>
             <label for="type">Tipo de transacción</label>
             <input type="text" name="type" #type="ngModel" [(ngModel)]="transaction.type">
-        </p>
-
-        <p>
-            <label for="description">Descripcion</label>
-            <input type="text" name="description" #description="ngModel" [(ngModel)]="transaction.description">
         </p>
 
         <p>
