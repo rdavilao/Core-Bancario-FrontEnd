@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>{{title}}</h2>
+    <form #transactionListForm="ngForm" (ngSubmit)="getTransactions(transactionListForm)">
+        <p>
+            <label for="identification">Documento de Indentificacion</label>
+            <input type="text" name="identification" [(ngModel)]="identification" required>
+        </p>
+
+        <p>
+            <label for="limit">Numero de transacciones</label>
+            <input type="number" name="limit" [(ngModel)]="limit">
+        </p>
+
+        <input type="submit" value="Consultar">
+    </form>
+    <ul>
+        <li *ngFor="let transaction of transactions" class="transaction">
+            <mat-card class="card">
+                <h2>{{transaction.creationDate | date : "medium"}}</h2>
+                <p>Cuenta: {{transaction.account}}</p>
+                <p>Tipo: {{transaction.type}}</p>
+                <p>Descripción: {{transaction.description}}</p>
+                <p>Monto: {{transaction.mont}}</p>
+            </mat-card>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>{{title}}</h2>
+
+    <div class="message success" *ngIf="status == 'success'">
+        La transaccion se ha realizado correctamente.
+    </div>
+
+    <div class="message failed" *ngIf="status == 'failed'">
+        La transaccion se ha podido realizar.
+    </div>
+    <form #transactionForm="ngForm" (ngSubmit)="onSubmit(transactionForm)">
+        <p>
+            <label for="identification">Documento de Indentificacion</label>
+            <input type="text" name="identification" #identification="ngModel" [(ngModel)]="transaction.identification" required>
+            <span class="form-error" *ngIf="identification.touched && !identification.valid">*Campo obligatorio</span>
+        </p>
+
+        <p>
+            <label for="account">Número de cuenta del beneficiario</label>
+            <input type="text" name="account" #account="ngModel" [(ngModel)]="transaction.account" required>
+            <span class="form-error" *ngIf="account.touched && !account.valid">*Campo obligatorio</span>
+        </p>
+
+        <p>
+            <label for="type">Tipo de transacción</label>
+            <input type="text" name="type" #type="ngModel" [(ngModel)]="transaction.type">
+        </p>
+
+        <p>
+            <label for="mont">Monto</label>
+            <input type="number" name="mont" #mont="ngModel" [(ngModel)]="transaction.mont">
+        </p>
+
+        <input type="submit" value="Enviar" [disabled]="!transactionForm.form.valid">
+    </form>
+</div>
