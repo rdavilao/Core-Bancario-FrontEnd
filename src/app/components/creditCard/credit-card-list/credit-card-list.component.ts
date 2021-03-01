@@ -14,8 +14,8 @@ export class CreditCardListComponent implements OnInit {
 
   public title: string;
   public identification: string;
+  public img: string;
   public type: number;
-  public _i:number;
   public creditCards: CreditCardRQ[];
   public accounts: Account;
 
@@ -31,6 +31,11 @@ export class CreditCardListComponent implements OnInit {
   }
 
   getCreditCard(form) {
+    if(this.type == 4){
+      this.img = "../../../../assets/visa.png";
+    }else{
+      this.img = "../../../../assets/mastercard.png";
+    }
     this._creditCardService.getCreditCardsByIdentificationAndType(this.identification,this.type).subscribe(
       response => {
         if(response){

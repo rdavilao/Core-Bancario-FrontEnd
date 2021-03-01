@@ -1,1 +1,25 @@
-<p>credit-card works!</p>
+<div class="container">
+    <h2>{{title}}</h2>
+
+    <div class="message success" *ngIf="status == 'success'">
+        El pago de su tarjeta fue realizado correctamente.
+    </div>
+
+    <div class="message failed" *ngIf="status == 'failed'">
+        A ocurrido un error en el pago de la tarjeta.
+    </div>
+    <form #transactionForm="ngForm" (ngSubmit)="onSubmit(transactionForm)">
+        <p *ngIf="transaction.type!='Pago'">
+            <label for="account">Número de tarjeta de crédito</label>
+            <input type="text" name="account" #account="ngModel" [(ngModel)]="transaction.account" required>
+            <span class="form-error" *ngIf="account.touched && !account.valid">*Campo obligatorio</span>
+        </p>
+
+        <p>
+            <label for="mont">Monto</label>
+            <input type="number" name="mont" #mont="ngModel" [(ngModel)]="transaction.mont">
+        </p>
+
+        <input type="submit" value="Enviar" [disabled]="!transactionForm.form.valid">
+    </form>
+</div>
