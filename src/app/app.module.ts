@@ -13,6 +13,8 @@ import { TransactionListComponent } from './components/transactions/transaction-
 import { ErrorComponent } from './components/error/error.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import {SharedStyleModule } from './shared/shared-style/shared-style.module';
+import { CreditCardComponent } from './components/creditCard/credit-card/credit-card.component';
+import { CreditCardListComponent } from './components/creditCard/credit-card-list/credit-card-list.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import {SharedStyleModule } from './shared/shared-style/shared-style.module';
     TransactionComponent,
     TransactionListComponent,
     NavigationComponent,
-    ErrorComponent
+    ErrorComponent,
+    CreditCardComponent,
+    CreditCardListComponent
   ],
   imports: [
     BrowserModule,
