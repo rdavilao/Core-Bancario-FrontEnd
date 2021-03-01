@@ -26,5 +26,6 @@
 
 .card {
     max-width: 100%;
+    height: auto;
     margin: 2em 2em;
 }

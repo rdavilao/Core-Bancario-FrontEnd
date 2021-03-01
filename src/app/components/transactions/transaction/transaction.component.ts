@@ -12,32 +12,41 @@ export class TransactionComponent implements OnInit {
 
   public title: string;
   public transaction: Transaction;
-  public status:string;
+  public status: string;
+  public typeP: string;
 
   constructor(
     private _transactionService: TransactionService
-  ) { 
-    this.title = "Crear transaccion";
-    this.transaction = new Transaction('','','',new Date(),'','',0,0);
+  ) {
+    this.title = "Crear transacción";
+    this.typeP = "luz";
+    this.transaction = new Transaction('', '', '', new Date(), 'Depósito', '', 0, 0);
   }
 
   ngOnInit(): void {
   }
 
-  onSubmit(form){
-    
-    this.transaction.description = "La persona con ci: " + this.transaction.identification + " realizó un " + this.transaction.type + " de " + this.transaction.mont + " a la cuenta " + this.transaction.account;
+  onSubmit(form) {
+    if (this.transaction.type != "Pago") {
+      this.transaction.description = "La persona con ci: " + this.transaction.identification + " realizó un " +
+        this.transaction.type + " de " + this.transaction.mont + " a la cuenta " + this.transaction.account;
+    } else {
+      this.transaction.description = "La persona con ci: " + this.transaction.identification +
+        " realizó un " + this.transaction.type + " de " + this.typeP + " con valor de "
+        + this.transaction.mont + " a la cuenta " + this.transaction.account;
+      this.transaction.account = "2700000000001";
+    }
     this._transactionService.saveTransaction(this.transaction).subscribe(
       response => {
-        if(response == null){
+        if (response == null) {
           this.status = 'success';
           form.reset();
-        }else{
+        } else {
           this.status = 'failed';
         }
       },
       error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     )
   }

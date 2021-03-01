@@ -49,14 +49,36 @@ form input[disabled] {
     opacity: 0.4;
 }
 
+form select {
+    display: block;
+    font-size: 14px;
+    padding: 5px;
+    height: 42px;
+    width: 20%;
+}
+
+form select::-ms-expand {
+    display: none;
+}
+
+form select:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 1px rgba(43, 41, 105, 1);
+    color: black;
+    outline: none;
+}
+
 .transaction {
     list-style: none;
     display: block;
     float: left;
-    width: 25%;
+    width: 28%;
+    height: 220px;
     text-align: left;
     margin-left: 20px;
     margin-right: 20px;
+    margin-bottom: 30px;
+    margin-block-start: 20px;
 }
 
 .transaction h2 {
