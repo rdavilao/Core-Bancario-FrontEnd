@@ -11,17 +11,28 @@
             <input type="number" name="limit" [(ngModel)]="limit">
         </p>
 
+        <p>
+            <label>Tipo de transaccion</label>
+            <select name="type" [(ngModel)]="type">
+                <option value="all" selected>Todas</option>
+                <option value="Depósito">Depósito</option>
+                <option value="Retiro">Retiro</option>
+                <option value="Pago">Pago de servicios</option>
+            </select>
+        </p>
+
         <input type="submit" value="Consultar">
     </form>
-    <ul>
-        <li *ngFor="let transaction of transactions" class="transaction">
-            <mat-card class="card">
-                <h2>{{transaction.creationDate | date : "medium"}}</h2>
-                <p>Cuenta: {{transaction.account}}</p>
-                <p>Tipo: {{transaction.type}}</p>
-                <p>Descripción: {{transaction.description}}</p>
-                <p>Monto: {{transaction.mont}}</p>
-            </mat-card>
-        </li>
-    </ul>
 </div>
+
+<ul>
+    <li *ngFor="let transaction of transactions" class="transaction">
+        <mat-card>
+            <h2>{{transaction.creationDate | date : "medium"}}</h2>
+            <p>Cuenta: {{transaction.account}}</p>
+            <p>Tipo: {{transaction.type}}</p>
+            <p>Descripción: {{transaction.description}}</p>
+            <p>Monto: {{transaction.mont}}</p>
+        </mat-card>
+    </li>
+</ul>

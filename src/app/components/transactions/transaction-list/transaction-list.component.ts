@@ -13,29 +13,49 @@ export class TransactionListComponent implements OnInit {
   public title: string;
   public identification:string;
   public limit:number;
+  public type:string;
   public transactions: Transaction[];
 
   constructor(
     private _transactionService: TransactionService
   ) { 
     this.title = "Lista de transacciones";
+    this.type = "all";
+    this.limit = 1;
   }
 
   ngOnInit(): void {
   }
 
   getTransactions(form) {
-    this._transactionService.getTransactions(this.identification,this.limit).subscribe(
-      response => {
-        console.log(response);
-        if(response){
-          this.transactions = response;
+    if(this.type == "all"){
+      this._transactionService.getTransactions(this.identification,this.limit).subscribe(
+        response => {
+          console.log(response);
+          if(response){
+            this.transactions = response;
+          }
+        },
+        error => {
+          this.transactions = null;
+          console.log(<any>error);
         }
-      },
-      error => {
-        console.log(<any>error);
-      }
-    );
+      );
+    }else{
+      this._transactionService.getTransactionsByType(this.identification,this.limit,this.type).subscribe(
+        response => {
+          console.log(response);
+          if(response){
+            this.transactions = response;
+          }
+        },
+        error => {
+          this.transactions = null;
+          console.log(<any>error);
+        }
+      );
+    }
+    
   }
 
 }
