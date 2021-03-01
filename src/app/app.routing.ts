@@ -1,8 +1,8 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ClientComponent } from './components/client/client.component';
-import { AccountComponent } from './components/account/account.component';
+import { ClientComponent } from './components/clients/client/client.component';
+import { AccountComponent } from './components/accounts/account/account.component';
 import { TransactionComponent } from './components/transactions/transaction/transaction.component';
 import { TransactionListComponent } from './components/transactions/transaction-list/transaction-list.component';
 import { CreditCardComponent } from './components/creditCard/credit-card/credit-card.component';
