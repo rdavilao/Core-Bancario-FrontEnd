@@ -16,10 +16,11 @@ export class AccountService {
         return "Probando el servicio de tarjetas de credito"
     }
 
-    saveTransaction(account: Account): Observable<any>{
-        let params = JSON.stringify(account);
+    saveAccount(account: Account): Observable<any>{
+        let body = '{"clientIdentification":"'+account.CLIENT_IDENTIFICATION+'" ,"type":'+account.TYPE+'}';
+        console.log(body);
         let headers = new HttpHeaders().set('Content-Type','application/json');
-        return this._http.post(urlAccount+'/create', params, {headers: headers});
+        return this._http.post(urlAccount+'/create', body, {headers: headers});
     }
 
     getAccountByNumber(number: string): Observable<any>{
