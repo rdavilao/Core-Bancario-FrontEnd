@@ -14,6 +14,7 @@ import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 const appRoutes: Routes = [
     {path: '', component: ClientComponent},
     {path: 'client', component: ClientComponent},
+    {path: 'client/createClient', component: ClientComponent},
     {path: 'account', component: AccountComponent},
     {path: 'transaction', component: TransactionComponent},
     {path: 'transaction/list', component: TransactionListComponent},
