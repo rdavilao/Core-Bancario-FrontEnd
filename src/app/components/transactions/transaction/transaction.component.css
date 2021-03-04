@@ -95,3 +95,36 @@ form select:focus {
     background: red;
     color: white;
 }
+
+.transaction {
+    list-style: none;
+    display: block;
+    float: none;
+    width: 35%;
+    height: 200px;
+    text-align: left;
+    margin-left: 30%;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    margin-block-start: 50px;
+}
+
+.transaction h2 {
+    display: block;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.button {
+    font-size: 15px;
+    padding: 5px;
+    margin-top: 15px;
+    color: white;
+    background: rgb(2, 139, 13);
+    border: 1px solid rgb(0, 58, 13);
+}

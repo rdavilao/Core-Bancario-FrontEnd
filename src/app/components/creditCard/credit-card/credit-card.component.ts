@@ -33,6 +33,9 @@ export class CreditCardComponent implements OnInit {
         if (response == null) {
           this.status = 'success';
           form.reset();
+          setTimeout(()=>{
+            this.status = '';  
+          },1000);
         } else {
           this.status = 'failed';
         }

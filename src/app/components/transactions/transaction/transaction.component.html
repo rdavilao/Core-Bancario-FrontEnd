@@ -13,7 +13,7 @@
         <p>
             <label>Tipo de transaccion</label>
             <select name="type" #type="ngModel" [(ngModel)]="transaction.type">
-                <option value="Depósito" selected>Depósito</option>
+                <option value="Deposito" selected>Depósito</option>
                 <option value="Retiro">Retiro</option>
                 <option value="Pago">Pago de servicios</option>
             </select>
@@ -28,7 +28,7 @@
         </p>
         <p>
             <label for="identification" *ngIf="transaction.type=='Pago'">Teléfono convencional</label>
-            <label for="identification" *ngIf="transaction.type!='Pago'">Documento de Indentificacion</label>
+            <label for="identification" *ngIf="transaction.type!='Pago'">Documento de Identificacion</label>
             <input type="text" name="identification" #identification="ngModel" [(ngModel)]="transaction.identification" required>
             <span class="form-error" *ngIf="identification.touched && !identification.valid">*Campo obligatorio</span>
         </p>
@@ -44,6 +44,22 @@
             <input type="number" name="mont" #mont="ngModel" [(ngModel)]="transaction.mont">
         </p>
 
-        <input type="submit" value="Enviar" [disabled]="!transactionForm.form.valid">
+        <input type="submit" value="Enviar" [disabled]="!transactionForm.form.valid || showT == 'success'">
+
+        <div *ngIf="showT == 'success'">
+            <input type="button" class="button" value="Nueva transaccion" (click)="newTransaction(transactionForm)">
+        </div>
     </form>
+    <div *ngIf="showT == 'success'">
+        <mat-card class="transaction">
+            <h2>
+                <img src={{img}} height="20px" />
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{transaction.type}}
+            </h2>
+            <p>Fecha: {{transaction.creationDate | date : "medium"}}</p>
+            <p>Cuenta: {{transaction.account}}</p>
+            <p>Descripción: {{transaction.description}}</p>
+            <p>Monto: {{transaction.mont}}</p>
+        </mat-card>
+    </div>
 </div>
