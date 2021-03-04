@@ -50,8 +50,12 @@ export class TransactionComponent implements OnInit {
     this._transactionService.saveTransaction(this.transaction).subscribe(
       response => {
         if (response == null) {
+          if(this.transaction.type == "Retiro"){
+            this.showT = 'successRetiro';
+          }else{
+            this.showT = 'success';
+          }
           this.status = 'success';
-          this.showT = 'success';
           this.img = "../../../../assets/logo-bb-4.jpeg";
         } else {
           this.status = 'failed';

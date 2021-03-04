@@ -8,7 +8,7 @@ import { AccountService } from '../../../services/account.service';
   selector: 'app-credit-card-list',
   templateUrl: './credit-card-list.component.html',
   styleUrls: ['./credit-card-list.component.css'],
-  providers: [CreditCardService, AccountService]
+  providers: [CreditCardService]
 })
 export class CreditCardListComponent implements OnInit {
 
@@ -17,11 +17,9 @@ export class CreditCardListComponent implements OnInit {
   public img: string;
   public type: number;
   public creditCards: CreditCardRQ[];
-  public accounts: Account;
 
   constructor(
     private _creditCardService: CreditCardService,
-    private _accountService: AccountService
   ) {
     this.type = 4;
     this.title = "Lista de tarjetas de crédito";
@@ -43,6 +41,7 @@ export class CreditCardListComponent implements OnInit {
         }
       },
       error => {
+        this.creditCards = [];
         console.log(<any>error);
       }
     );

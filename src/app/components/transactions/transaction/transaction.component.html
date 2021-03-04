@@ -50,16 +50,19 @@
             <input type="button" class="button" value="Nueva transaccion" (click)="newTransaction(transactionForm)">
         </div>
     </form>
-    <div *ngIf="showT == 'success'">
+    <div *ngIf="showT == 'success' || showT == 'successRetiro'">
         <mat-card class="transaction">
             <h2>
-                <img src={{img}} height="20px" />
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{transaction.type}}
+                <img src={{img}} height="27px" />
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{{transaction.type}}
             </h2>
             <p>Fecha: {{transaction.creationDate | date : "medium"}}</p>
             <p>Cuenta: {{transaction.account}}</p>
             <p>Descripción: {{transaction.description}}</p>
             <p>Monto: {{transaction.mont}}</p>
+            <div *ngIf="showT == 'successRetiro'">
+                <p>Saldo restante: {{transaction.mont}}</p>
+            </div>
         </mat-card>
     </div>
 </div>
