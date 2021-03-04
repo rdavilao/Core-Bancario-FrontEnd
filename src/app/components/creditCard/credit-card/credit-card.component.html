@@ -20,6 +20,22 @@
             <input type="number" name="mont" #mont="ngModel" [(ngModel)]="transaction.mont">
         </p>
 
-        <input type="submit" value="Enviar" [disabled]="!transactionForm.form.valid">
+        <input type="submit" value="Enviar" [disabled]="!transactionForm.form.valid || showT == 'success'">
+        <div *ngIf="showT == 'success'">
+            <input type="button" class="button" value="Nuevo pago" (click)="newTransaction(transactionForm)">
+        </div>
     </form>
+    <div *ngIf="showT == 'success'">
+        <mat-card class="transaction">
+            <h2>
+                <img src={{img}} height="27px" />
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{transaction.type}}
+            </h2>
+            <p>Fecha: {{transaction.creationDate | date : "medium"}}</p>
+            <p>Tarjeta: {{transaction.account}}</p>
+            <p>Descripción: {{transaction.description}}</p>
+            <p>Monto: {{transaction.mont}}</p>
+            <p>Saldo: {{transaction.balanceAccount}}</p>
+        </mat-card>
+    </div>
 </div>
