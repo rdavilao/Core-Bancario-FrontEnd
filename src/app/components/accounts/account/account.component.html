@@ -1,1 +1,28 @@
-<p>account works!</p>
+<div class="container">
+    <h2>{{title}}</h2>
+
+    <div class="message success" *ngIf="showA == 'success'">
+        La cuenta se ha creado correctamente.
+    </div>
+
+    <div class="message failed" *ngIf="showA == 'failed'">
+        A ocurrido un error en la creación de la cuenta.
+    </div>
+    <form #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)">
+
+        <p>
+            <label>Tipo de cuenta:</label>
+            <select name="TYPE" #TYPE="ngModel" [(ngModel)]="account.TYPE">
+                <option value="1" selected>Ahorro</option>
+                <option value="2">Ahorro programado</option>
+                <option value="3">Corriente</option>
+            </select>
+        </p>
+        <p>
+            <label for="CLIENT_IDENTIFICATION">Documento de Identificacion</label>
+            <input type="text" name="CLIENT_IDENTIFICATION" #CLIENT_IDENTIFICATION="ngModel" [(ngModel)]="account.CLIENT_IDENTIFICATION" required>
+        </p>
+
+        <input type="submit" value="Enviar" [disabled]="!accountForm.form.valid">
+    </form>
+</div>

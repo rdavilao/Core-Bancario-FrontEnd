@@ -18,6 +18,7 @@ import {SharedStyleModule } from './shared/shared-style/shared-style.module';
 import { CreditCardComponent } from './components/creditCard/credit-card/credit-card.component';
 import { CreditCardListComponent } from './components/creditCard/credit-card-list/credit-card-list.component';
 import { AccountUpdateComponent } from './components/accounts/account-update/account-update.component';
+import { AccountListComponent } from './components/accounts/account-list/account-list.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { AccountUpdateComponent } from './components/accounts/account-update/acc
     ErrorComponent,
     CreditCardComponent,
     CreditCardListComponent,
-    AccountUpdateComponent
+    AccountUpdateComponent,
+    AccountListComponent
   ],
   imports: [
     BrowserModule,

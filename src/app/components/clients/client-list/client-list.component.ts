@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { ClientUpdateComponent } from '../client-update/client-update.component'
+import { ClientUpdateComponent } from '../client-update/client-update.component';
 
 @Component({
   selector: 'app-client-list',
@@ -59,19 +59,6 @@ export class ClientListComponent implements OnInit, AfterViewInit {
       const dataStr =JSON.stringify(data).toLowerCase();
       return dataStr.indexOf(filter) != -1; 
     }
-  }
-  
-  nestedFilterCheck(search, data, key) {
-    if (typeof data[key] === 'object') {
-      for (const k in data[key]) {
-        if (data[key][k] !== null) {
-          search = this.nestedFilterCheck(search, data[key], k);
-        }
-      }
-    } else {
-      search += data[key];
-    }
-    return search;
   }
 
   onSubmit(form){
