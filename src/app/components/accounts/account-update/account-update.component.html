@@ -1,1 +1,9 @@
-<p>account-update works!</p>
+<div class="container">
+    <mat-dialog-content class="mat-typography">
+        <h3 mat-dialog-title>Está seguro de qué desea desea deshabilitar la cuenta {{number}}</h3>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end ">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true " cdkFocusInitial (click)="confirm()">Confirmar</button>
+    </mat-dialog-actions>
+</div>
