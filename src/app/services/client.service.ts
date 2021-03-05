@@ -28,15 +28,15 @@ export class ClientService {
     }
 
     validatorListaObservado(identification: string): Observable<any>{
-        return this._http.get('http://3.227.175.235:8083/api/bbConsultas/listaObservado?identificacion='+identification+'&nombreCompleto=&paisNacimiento=', {headers: headers});
+        return this._http.get('http://bbconsultas.southcentralus.cloudapp.azure.com:8083/api/bbConsultas/listaObservado?identificacion='+identification+'&nombreCompleto=&paisNacimiento=', {headers: headers});
     }
 
     validatorExistenceSRI(identification: string): Observable<any>{
-        return this._http.get('http://3.227.175.235:8081/api/bbConsultas/sri/contribuyente/'+identification, {headers: headers});
+        return this._http.get('http://bbconsultas.southcentralus.cloudapp.azure.com:8081/api/bbConsultas/sri/contribuyente/'+identification, {headers: headers});
     }
 
     validatorExistenceRC(identification: string): Observable<any>{
-        return this._http.get('http://3.227.175.235:8080/api/bbConsultas/regCivil/persona/'+identification, {headers: headers});
+        return this._http.get('http://bbconsultas.southcentralus.cloudapp.azure.com:8080/api/bbConsultas/regCivil/persona/'+identification, {headers: headers});
     }
 
     validatorExistenceBB(identification: string): Observable<any>{
@@ -52,7 +52,7 @@ export class ClientService {
     }
 
     getClientsByType(type: string): Observable<any>{
-        return this._http.get('http://18.209.218.56:8081/api/corebancario/client/findClientByType/'+type, {headers: headers});
+        return this._http.get(urlClient+'/findClientByType/'+type, {headers: headers});
     }
 
     updateClient(client: Client): Observable<any>{
