@@ -8,8 +8,13 @@
             <mat-divider></mat-divider>
 
             <a matSubheader [routerLink]="['/account']">Cuentas</a>
-            <a class="list-item-margin" mat-list-item [routerLink]="['/account']">Agregar nueva</a>
+            <a class="list-item-margin" mat-list-item [routerLink]="['/account']">Crear nueva</a>
             <a class="list-item-margin" mat-list-item [routerLink]="['/account/searchAccount']">Listar cuentas</a>
+
+            <mat-divider></mat-divider>
+            <a matSubheader [routerLink]="['/creditCard']">Tarjetas de crédito</a>
+            <a class="list-item-margin " mat-list-item [routerLink]="['/creditCard']">Crear nueva</a>
+            <a class="list-item-margin " mat-list-item [routerLink]="['/creditCard/list']">Listado tarjetas de credito</a>
 
             <mat-divider></mat-divider>
             <a matSubheader [routerLink]="['/transaction']">Transacciones</a>
@@ -17,9 +22,9 @@
             <a class="list-item-margin " mat-list-item [routerLink]="['/transaction/list']">Listado de transacciones</a>
 
             <mat-divider></mat-divider>
-            <a matSubheader [routerLink]="['/creditCard']">Tarjetas de crédito</a>
-            <a class="list-item-margin " mat-list-item [routerLink]="['/creditCard']">Pago de tarjetas</a>
-            <a class="list-item-margin " mat-list-item [routerLink]="['/creditCard/list']">Listado tarjetas de credito</a>
+            <a matSubheader [routerLink]="['/creditCardPayment']">Pago de tarjetas de crédito</a>
+            <a class="list-item-margin " mat-list-item [routerLink]="['/creditCardPayment']">Realizar pago</a>
+            <a class="list-item-margin " mat-list-item [routerLink]="['/creditCardPayment/list']">Listado tarjetas de credito</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

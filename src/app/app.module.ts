@@ -15,10 +15,13 @@ import { TransactionListComponent } from './components/transactions/transaction-
 import { ErrorComponent } from './components/error/error.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import {SharedStyleModule } from './shared/shared-style/shared-style.module';
-import { CreditCardComponent } from './components/creditCard/credit-card/credit-card.component';
-import { CreditCardListComponent } from './components/creditCard/credit-card-list/credit-card-list.component';
+import { CreditCardPaymentComponent } from './components/creditCardPayment/credit-card/credit-card.component';
+import { CreditCardPaymentListComponent } from './components/creditCardPayment/credit-card-list/credit-card-list.component';
 import { AccountUpdateComponent } from './components/accounts/account-update/account-update.component';
 import { AccountListComponent } from './components/accounts/account-list/account-list.component';
+import { CreditCardUpdateComponent } from './components/creditCard/credit-card-update/credit-card-update.component';
+import { CreditCardComponent } from './components/creditCard/credit-card/credit-card.component';
+import { CreditCardListComponent } from './components/creditCard/credit-card-list/credit-card-list.component';
 
 
 @NgModule({
@@ -32,10 +35,13 @@ import { AccountListComponent } from './components/accounts/account-list/account
     TransactionListComponent,
     NavigationComponent,
     ErrorComponent,
-    CreditCardComponent,
-    CreditCardListComponent,
+    CreditCardPaymentComponent,
+    CreditCardPaymentListComponent,
     AccountUpdateComponent,
-    AccountListComponent
+    AccountListComponent,
+    CreditCardUpdateComponent,
+    CreditCardComponent,
+    CreditCardListComponent
   ],
   imports: [
     BrowserModule,

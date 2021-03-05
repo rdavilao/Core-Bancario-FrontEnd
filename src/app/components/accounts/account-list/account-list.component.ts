@@ -54,9 +54,9 @@ export class AccountListComponent implements OnInit, AfterViewInit {
     );
   }
   
-  openDialog(identification) {
+  openDialog(number) {
     const dialogRef = this.dialog.open(AccountUpdateComponent);
-
+    dialogRef.componentInstance.number = number;
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

@@ -30,4 +30,9 @@ export class AccountService {
     getAccountByNumber(number: string): Observable<any>{
         return this._http.get(urlAccount+'/findAccountByNumber/'+number,{headers: headers});
     }
+
+    updateStateAccount(number: string): Observable<any>{
+        let body = '{"number":"'+number+'" ,"state":"INA"}';
+        return this._http.put(urlAccount+'/updateStatus', body, {headers: headers});
+    }
 }

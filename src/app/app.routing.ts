@@ -9,6 +9,8 @@ import { AccountUpdateComponent } from './components/accounts/account-update/acc
 import { AccountListComponent } from './components/accounts/account-list/account-list.component';
 import { TransactionComponent } from './components/transactions/transaction/transaction.component';
 import { TransactionListComponent } from './components/transactions/transaction-list/transaction-list.component';
+import { CreditCardPaymentComponent } from './components/creditCardPayment/credit-card/credit-card.component';
+import { CreditCardPaymentListComponent } from './components/creditCardPayment/credit-card-list/credit-card-list.component';
 import { CreditCardComponent } from './components/creditCard/credit-card/credit-card.component';
 import { CreditCardListComponent } from './components/creditCard/credit-card-list/credit-card-list.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -22,10 +24,11 @@ const appRoutes: Routes = [
     {path: 'client/updateclient', component: ClientUpdateComponent},
     {path: 'client/searchClient', component: ClientListComponent},
     {path: 'account', component: AccountComponent},
-    {path: 'account/updateAccount', component: AccountUpdateComponent},
     {path: 'account/searchAccount', component: AccountListComponent},
     {path: 'transaction', component: TransactionComponent},
     {path: 'transaction/list', component: TransactionListComponent},
+    {path: 'creditCardPayment', component: CreditCardPaymentComponent},
+    {path: 'creditCardPayment/list', component: CreditCardPaymentListComponent},
     {path: 'creditCard', component: CreditCardComponent},
     {path: 'creditCard/list', component: CreditCardListComponent},
     {path: '**', component: ErrorComponent}
