@@ -37,7 +37,7 @@ export class CreditCardPaymentComponent implements OnInit {
   onSubmit(form) {
     this.transaction.identification = this.transaction.account;
     this.transaction.description = "Pago con monto de: " + this.transaction.mont + " de la tarjeta  " +
-      this.transaction.account + ", saldo pendiente: " + this.transaction.balanceAccount;
+      this.transaction.account + ".";
     this._transactionService.saveTransactionTC(this.transaction).subscribe(
       response => {
         if (response == null) {

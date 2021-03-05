@@ -16,7 +16,7 @@
 
     <form #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
         <p>
-            <label for="identification">Documento de Identificacion</label>
+            <label for="identification">Documento de identificación</label>
             <input type="text" name="identification" #identification="ngModel" [(ngModel)]="client.identification" required>
             <input type="button" class="button" (click)="validator();" value="Validar" />
             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img src={{img}} height="35px" />
@@ -64,7 +64,7 @@
                 </select>
                 </p>
                 <p>
-                    <label for="canton">Canton</label>
+                    <label for="canton">Cantón</label>
                     <select name="canton" #canton="ngModel" [(ngModel)]="address.canton" (change)='loadParish($event.target.value)'>
                     <option *ngFor="let canton of cantones" value="{{canton.nombre}}">
                         {{canton.nombre}}
