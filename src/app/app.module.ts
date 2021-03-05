@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routing, appRoutingProviders } from './app.routing';
 import { AppComponent } from './app.component';
 import { ClientComponent } from './components/clients/client/client.component';
+import { ClientUpdateComponent } from './components/clients/client-update/client-update.component';
+import { ClientListComponent } from './components/clients/client-list/client-list.component';
 import { AccountComponent } from './components/accounts/account/account.component';
 import { TransactionComponent } from './components/transactions/transaction/transaction.component';
 import { TransactionListComponent } from './components/transactions/transaction-list/transaction-list.component';
@@ -22,6 +24,8 @@ import { AccountUpdateComponent } from './components/accounts/account-update/acc
   declarations: [
     AppComponent,
     ClientComponent,
+    ClientUpdateComponent,
+    ClientListComponent,
     AccountComponent,
     TransactionComponent,
     TransactionListComponent,

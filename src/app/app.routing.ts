@@ -2,6 +2,8 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ClientComponent } from './components/clients/client/client.component';
+import { ClientUpdateComponent } from './components/clients/client-update/client-update.component';
+import { ClientListComponent } from './components/clients/client-list/client-list.component';
 import { AccountComponent } from './components/accounts/account/account.component';
 import { TransactionComponent } from './components/transactions/transaction/transaction.component';
 import { TransactionListComponent } from './components/transactions/transaction-list/transaction-list.component';
@@ -15,6 +17,8 @@ const appRoutes: Routes = [
     {path: '', component: ClientComponent},
     {path: 'client', component: ClientComponent},
     {path: 'client/createClient', component: ClientComponent},
+    {path: 'client/updateclient', component: ClientUpdateComponent},
+    {path: 'client/searchClient', component: ClientListComponent},
     {path: 'account', component: AccountComponent},
     {path: 'transaction', component: TransactionComponent},
     {path: 'transaction/list', component: TransactionListComponent},
