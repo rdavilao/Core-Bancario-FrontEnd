@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit  } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AccountService } from '../../../services/account.service';
 import { AccountUpdateComponent } from '../account-update/account-update.component';
 import { MatTableDataSource } from '@angular/material/table';

@@ -163,7 +163,7 @@ export class ClientComponent implements OnInit {
     this.client.surnames = response.apellidos;
     this.client.genre = response.genero;
     this.client.birthdate = response.datosNacimiento.fechaNacimiento;
-    this.client.nationality = response.nacionalidad.nombre;
+    this.client.nationality = response.nacionalidad.id;
   }
 
   generateContributor(response) {

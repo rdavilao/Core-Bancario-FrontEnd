@@ -1,1 +1,45 @@
-<p>credit-card works!</p>
+<div class="container">
+    <h2>{{title}}</h2>
+
+    <div class="message success" *ngIf="showA == 'success'">
+        La tarjeta de crédito se ha creado correctamente.
+    </div>
+
+    <div class="message failed" *ngIf="showA == 'failed'">
+        A ocurrido un error en la creación de la tarjeta de crédito.
+    </div>
+    <form #creditCardForm="ngForm" (ngSubmit)="onSubmit(creditCardForm)">
+
+        <p>
+            <label for="identification">Documento de Identificacion</label>
+            <input type="text" name="identification" [(ngModel)]="identification" required>
+        </p>
+        <p>
+            <label>Tipo de tarjeta de crédito:</label>
+            <select name="type" [(ngModel)]="type">
+                <option value="4" selected>VISA</option>
+                <option value="5">MASTERCARD</option>
+            </select>
+        </p>
+        <label>Tarjeta adicional:</label>
+        <div>
+            <label for="yes">Si
+            <input type="radio" [(ngModel)]="creditCardAditional" name="yes" value="yes">
+            No
+            <input type="radio" [(ngModel)]="creditCardAditional" name="no" value="no"></label>
+        </div>
+        <div *ngIf="creditCardAditional == 'yes'">
+            <input type="button" (click)="getCreditCards()" value="Consultar Tarjetas" />
+            <br>
+            <p>
+                <label for="numberAccount">Seleccione la tarjeta:</label>
+                <select name="numberAccount" [(ngModel)]="numberAccount">
+                <option *ngFor="let creditCard of creditCards" value="{{creditCard.account}}">
+                    {{creditCard.number}}
+                </option>
+            </select>
+            </p>
+        </div>
+        <input type="submit" value="Enviar" [disabled]="!creditCardForm.form.valid">
+    </form>
+</div>
