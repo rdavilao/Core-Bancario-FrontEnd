@@ -63,8 +63,8 @@ export class ClientComponent implements OnInit {
     this.account.CLIENT_IDENTIFICATION = this.client.identification;
     this._accountService.saveAccount(this.account).subscribe(
       response => {
-        form.reset();
         this.addClient();
+        form.reset();
       },
       error => {
         this.status = 'failed';

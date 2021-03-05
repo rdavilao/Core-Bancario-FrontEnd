@@ -1,1 +1,205 @@
-<p>client-update works!</p>
+<div class="container">
+
+    <div class="message success" *ngIf="status == 'success'">
+        Cliente actualizado correctamente.
+    </div>
+    <h2 mat-dialog-title>Actualización de datos del cliente</h2>
+    <mat-dialog-content class="mat-typography">
+        <p>
+            <label for="identification">Documento de Identificacion: {{client.identification}}</label>
+        </p>
+        <p>
+            <label for="names">Nombres: {{client.names}}</label>
+        </p>
+        <p>
+            <label for="surnames">Apellidos: {{client.surnames}}</label>
+        </p>
+        <p>
+            <label for="email">email: {{client.email}}</label>
+        </p>
+        <p class="spacer"></p>
+
+        <div *ngIf="!isContributor">
+            <h3><b>Dirección Domiciliaria</b>
+                <input type="button" class="buttonAdd" (click)="activateForm('address');" value="Agregar nueva dirección" />
+            </h3>
+            <div class="message success" *ngIf="statusAddress == 'success'">
+                Dirección agregada correctamente.
+            </div>
+            <div class="message success" *ngIf="statusAddress == 'successUpdate'">
+                Dirección actualizada correctamente.
+            </div>
+            <div class="message failed" *ngIf="statusAddress == 'failedDelete'">
+                Debe existir al menos un registro de dirección.
+            </div>
+
+
+            <div *ngIf="activateForms == 'address'">
+                <form #addressFormAdd="ngForm">
+                    <p>
+                        <label for="type">Tipo</label>
+                        <input type="text" name="type" #type="ngModel" [(ngModel)]="address.type">
+                    </p>
+                    <p>
+                        <label for="mainStreet">Calle principal</label>
+                        <input type="text" name="mainStreet" #mainStreet="ngModel" [(ngModel)]="address.mainStreet">
+                    </p>
+                    <p>
+                        <label for="sideStreet">Calle secundaria</label>
+                        <input type="text" name="sideStreet" #sideStreet="ngModel" [(ngModel)]="address.sideStreet">
+                    </p>
+                    <p>
+                        <label for="number">Número</label>
+                        <input type="text" name="number" #number="ngModel" [(ngModel)]="address.number">
+                    </p>
+                    <p>
+                        <label for="reference">Referencia</label>
+                        <input type="text" name="reference" #reference="ngModel" [(ngModel)]="address.reference">
+                    </p>
+                    <p>
+                        <label for="province">Provincia</label>
+                        <select name="province" #province="ngModel" [(ngModel)]="address.province" (change)='loadCantones($event.target.value)'>
+                                <option *ngFor="let province of provinces" value="{{province.nombre}}">
+                                    {{province.nombre}}
+                                </option>
+                            </select>
+                    </p>
+                    <p>
+                        <label for="canton">Canton</label>
+                        <select name="canton" #canton="ngModel" [(ngModel)]="address.canton" (change)='loadParish($event.target.value)'>
+                                <option *ngFor="let canton of cantones" value="{{canton.nombre}}">
+                                    {{canton.nombre}}
+                                </option>
+                            </select>
+                    </p>
+                    <p>
+                        <label for="parish">Parroquia</label>
+                        <select name="parish" #parish="ngModel" [(ngModel)]="address.parish">
+                                <option *ngFor="let parro of parishes" value="{{parro.nombre}}">
+                                    {{parro.nombre}}
+                                </option>
+                            </select>
+                    </p>
+                    <input type="button" class="button" (click)="addAddress(addressFormAdd);" value="Agregar" />
+                </form>
+            </div>
+
+            <table>
+                <tr>
+                    <td *ngFor="let dir of client.addresses; index as i">
+                        <form #addressForm="ngForm">
+                            <p>
+                                <label for="type">Tipo</label>
+                                <input type="text" name="type" #type="ngModel" [(ngModel)]="address.type" placeholder="{{dir.type}}">
+                            </p>
+                            <p>
+                                <label for="mainStreet">Calle principal</label>
+                                <input type="text" name="mainStreet" #mainStreet="ngModel" [(ngModel)]="address.mainStreet" placeholder="{{dir.mainStreet}}">
+                            </p>
+                            <p>
+                                <label for="sideStreet">Calle secundaria</label>
+                                <input type="text" name="sideStreet" #sideStreet="ngModel" [(ngModel)]="address.sideStreet" placeholder="{{dir.sideStreet}}">
+                            </p>
+                            <p>
+                                <label for="number">Número</label>
+                                <input type="text" name="number" #number="ngModel" [(ngModel)]="address.number" placeholder="{{dir.number}}">
+                            </p>
+                            <p>
+                                <label for="reference">Referencia</label>
+                                <input type="text" name="reference" #reference="ngModel" [(ngModel)]="address.reference" placeholder="{{dir.reference}}">
+                            </p>
+                            <p>
+                                <label for="province">Provincia</label>
+                                <select name="province" #province="ngModel" [(ngModel)]="address.province" (change)='loadCantones($event.target.value);'>
+                                        <option *ngFor="let province of provinces" value="{{province.nombre}}">
+                                            {{province.nombre}}
+                                        </option>
+                                    </select>
+                            </p>
+                            <p>
+                                <label for="canton">Canton</label>
+                                <select name="canton" #canton="ngModel" [(ngModel)]="address.canton" (change)='loadParish($event.target.value);'>
+                                        <option *ngFor="let canton of cantones" value="{{canton.nombre}}">
+                                            {{canton.nombre}}
+                                        </option>
+                                    </select>
+                            </p>
+                            <p>
+                                <label for="parish">Parroquia</label>
+                                <select name="parish" #parish="ngModel" [(ngModel)]="address.parish">
+                                        <option *ngFor="let parro of parishes" value="{{parro.nombre}}">
+                                            {{parro.nombre}}
+                                        </option>
+                                    </select>
+                            </p>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input type="button" class="button" (click)="updateAddress(addressForm, i)" value="Actualizar" /></td>
+                                        <td>
+                                            <input type="button" class="buttonDelete" (click)="deleteAddress(i)" value="Eliminar" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <p class="spacer"></p>
+        <h3><b>Números de contacto</b>
+            <input type="button" class="buttonAdd" (click)="activateForm('phone')" value="Agregar nuevo contacto" />
+        </h3>
+
+        <div class="message success" *ngIf="statusPhone=='success' ">
+            Teléfono agregado correctamente.
+        </div>
+
+        <div class="message success" *ngIf="statusPhone=='successUpdate' ">
+            Teléfono actualizado correctamente.
+        </div>
+        <div class="message failed" *ngIf="statusPhone=='failedDelete' ">
+            Debe existir al menos un registro de contacto.
+        </div>
+
+        <div *ngIf="activateForms=='phone' ">
+            <form #phoneFormAdd="ngForm">
+                <p>
+                    <label for="type">Tipo</label>
+                    <input type="text" name="type" #type="ngModel" [(ngModel)]="phone.type">
+                </p>
+                <p>
+                    <label for="value ">Número</label>
+                    <input type="text " name="value" #value="ngModel" [(ngModel)]="phone.value">
+                </p>
+                <input type="button " class="button" (click)="addPhones(phoneFormAdd); " value="Agregar" />
+            </form>
+        </div>
+
+        <table>
+            <tr>
+                <td *ngFor="let phone of client.phones; index as i ">
+                    <form #phoneForm="ngForm">
+                        <p>
+                            <label for="type">Tipo</label>
+                            <input type="text " name="type" #type="ngModel" [(ngModel)]="phone.type" placeholder="phone.type">
+                        </p>
+                        <p>
+                            <label for="value">Número</label>
+                            <input type="text" name="value" #value="ngModel" [(ngModel)]="phone.value" placeholder="phone.value">
+                        </p>
+                        <input type="button" class="button" (click)="updatePhones(phoneForm, i); " value="Actualizar" />
+                        <input type="button" class="buttonDelete" (click)="deletePhone(i); " value="Eliminar " />
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end ">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true " cdkFocusInitial (click)="confirmUpdate() ">Confirmar</button>
+    </mat-dialog-actions>
+</div>
