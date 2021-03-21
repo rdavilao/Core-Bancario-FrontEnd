@@ -64,6 +64,9 @@ export class ClientComponent implements OnInit {
       response => {
         this.addAccount();
         form.reset();
+        this.client = new Client(null, null, null, null, null, new Date(), new Array<Address>(), '', new Array, null, null);
+        this.addresses = new Array<Address>();
+        this.phones = new Array<Phone>();
       },
       error => {
         console.log(<any>error);
