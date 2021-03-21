@@ -29,12 +29,18 @@ export class ClientUpdateComponent implements OnInit {
   public provinces: string[];
   public cantones: string[];
   public parishes: string[];
+  public provinceAux: string;
+  public cantonAux: string;
+  public parishAux: string;
+  public activateChangeAddress: string;
   public activateForms: string;
   public changePlace: string;
+  public iAux: number;
 
   constructor(
     private _clientService: ClientService,
     ) {
+    this.activateChangeAddress = '';
     this.identification = '';
     this.activateForms = '';
     this.changePlace = '';
@@ -124,9 +130,6 @@ export class ClientUpdateComponent implements OnInit {
     this.addresses[index].sideStreet = form.form.value.sideStreet;
     this.addresses[index].number = form.form.value.number;
     this.addresses[index].reference = form.form.value.reference;
-    this.addresses[index].province = form.form.value.province;
-    this.addresses[index].canton = form.form.value.canton;
-    this.addresses[index].parish = form.form.value.parish;
     this.client.addresses = this.addresses;
     console.log(this.addresses);
     this.statusAddress = 'successUpdate';
@@ -165,6 +168,20 @@ export class ClientUpdateComponent implements OnInit {
     setTimeout(()=>{
       this.statusPhone = '';
     },1000);
+  }
+
+  changeAddress(i){
+    this.activateChangeAddress = 'activate';
+    this.iAux = i;
+  }
+
+  confirmChangeAddress(){
+    this.activateChangeAddress = '';
+    this.client.addresses[this.iAux].province = this.provinceAux;
+    this.client.addresses[this.iAux].canton = this.cantonAux;
+    this.client.addresses[this.iAux].parish = this.parishAux;
+    this.iAux = null;
+
   }
 
   loadProvinces() {

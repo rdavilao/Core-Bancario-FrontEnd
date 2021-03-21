@@ -6,7 +6,7 @@
     <h2 mat-dialog-title>Actualización de datos del cliente</h2>
     <mat-dialog-content class="mat-typography">
         <p>
-            <label for="identification">Documento de Identificacion: {{client.identification}}</label>
+            <label for="identification">Documento de identificación: {{client.identification}}</label>
         </p>
         <p>
             <label for="names" *ngIf="!isContributor">Nombres: {{client.names}}</label>
@@ -67,7 +67,7 @@
                             </select>
                     </p>
                     <p>
-                        <label for="canton">Canton</label>
+                        <label for="canton">Cantón</label>
                         <select name="canton" #canton="ngModel" [(ngModel)]="address.canton" (change)='loadParish($event.target.value)'>
                                 <option *ngFor="let canton of cantones" value="{{canton.nombre}}">
                                     {{canton.nombre}}
@@ -111,29 +111,12 @@
                                 <input type="text" name="reference" #reference="ngModel" [(ngModel)]="dir.reference">
                             </p>
                             <p>
-                                <label for="province">Provincia</label>
-                                <select name="province" #province="ngModel" [(ngModel)]="dir.province" (change)='loadCantones($event.target.value);'>
-                                        <option *ngFor="let province of provinces" [value]="province.nombre">
-                                            {{province.nombre}}
-                                        </option>
-                                    </select>
+                                <label for="reference">Provincia: {{dir.province}}</label>
+                                <label for="reference">Cantón: {{dir.canton}}</label>
+                                <label for="reference">Parroquia: {{dir.parish}}</label>
                             </p>
-                            <p>
-                                <label for="canton">Canton</label>
-                                <select name="canton" #canton="ngModel" [(ngModel)]="dir.canton" (change)='loadParish($event.target.value);'>
-                                        <option *ngFor="let canton of cantones" [value]="canton.nombre">
-                                            {{canton.nombre}}
-                                        </option>
-                                    </select>
-                            </p>
-                            <p>
-                                <label for="parish">Parroquia</label>
-                                <select name="parish" #parish="ngModel" [(ngModel)]="dir.parish">
-                                        <option *ngFor="let parro of parishes" [value]="parro.nombre">
-                                            {{parro.nombre}}
-                                        </option>
-                                    </select>
-                            </p>
+                            <input type="button" class="button" (click)="changeAddress(i)" value="Cambiar ubicación" />
+
                             <div>
                                 <table>
                                     <tr>
@@ -148,6 +131,33 @@
                     </td>
                 </tr>
             </table>
+            <div *ngIf="activateChangeAddress != ''">
+                <p>
+                    <label for="province">Provincia</label>
+                    <select name="province" [(ngModel)]="provinceAux" (change)='loadCantones($event.target.value);'>
+                            <option *ngFor="let province of provinces">
+                                {{province.nombre}}
+                            </option>
+                        </select>
+                </p>
+                <p>
+                    <label for="canton">Cantón</label>
+                    <select name="canton" [(ngModel)]="cantonAux" (change)='loadParish($event.target.value);'>
+                            <option *ngFor="let canton of cantones">
+                                {{canton.nombre}}
+                            </option>
+                        </select>
+                </p>
+                <p>
+                    <label for="parish">Parroquia</label>
+                    <select name="parish" [(ngModel)]="parishAux">
+                            <option *ngFor="let parro of parishes">
+                                {{parro.nombre}}
+                            </option>
+                        </select>
+                </p>
+                <input type="button" class="button" (click)="confirmChangeAddress()" value="Aceptar" />
+            </div>
         </div>
 
         <p class="spacer"></p>

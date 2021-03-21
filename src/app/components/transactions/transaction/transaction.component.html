@@ -2,16 +2,16 @@
     <h2>{{title}}</h2>
 
     <div class="message success" *ngIf="status == 'success'">
-        La transaccion se ha realizado correctamente.
+        La transacción se ha realizado correctamente.
     </div>
 
     <div class="message failed" *ngIf="status == 'failed'">
-        La transaccion se ha podido realizar.
+        La transacción se ha podido realizar.
     </div>
     <form #transactionForm="ngForm" (ngSubmit)="onSubmit(transactionForm)">
 
         <p>
-            <label>Tipo de transaccion</label>
+            <label>Tipo de transacción</label>
             <select name="type" #type="ngModel" [(ngModel)]="transaction.type">
                 <option value="Deposito" selected>Depósito</option>
                 <option value="Retiro">Retiro</option>
@@ -23,12 +23,17 @@
             <select name="typeP" [(ngModel)]="typeP">
                 <option value="luz" selected>Luz</option>
                 <option value="agua">Agua</option>
+                <option value="telefono">Teléfono</option>
                 <option value="Internet">Internet</option>
             </select>
         </p>
         <p>
-            <label for="identification" *ngIf="transaction.type=='Pago'">Teléfono convencional</label>
-            <label for="identification" *ngIf="transaction.type!='Pago'">Documento de Identificacion</label>
+            <label *ngIf="transaction.type=='Pago'">
+                <label for="identification" *ngIf="typeP=='luz' || typeP=='agua'">Número de medidor</label>
+            <label for="identification" *ngIf="typeP=='telefono'">Teléfono convencional</label>
+            <label for="identification" *ngIf="typeP=='Internet'">Número de contrato</label>
+            </label>
+            <label for="identification" *ngIf="transaction.type!='Pago'">Documento de identificacion</label>
             <input type="text" name="identification" #identification="ngModel" [(ngModel)]="transaction.identification" required>
             <span class="form-error" *ngIf="identification.touched && !identification.valid">*Campo obligatorio</span>
         </p>

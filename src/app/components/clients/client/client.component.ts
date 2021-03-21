@@ -59,37 +59,36 @@ export class ClientComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(form) {
+  onSubmit(form){
+    this._clientService.saveClient(this.client).subscribe(
+      response => {
+        this.addAccount();
+        form.reset();
+        this.client = new Client(null, null, null, null, null, new Date(), new Array<Address>(), '', new Array, null, null);
+        this.addresses = new Array<Address>();
+        this.phones = new Array<Phone>();
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  addAccount() {
     this.account.CLIENT_IDENTIFICATION = this.client.identification;
     this._accountService.saveAccount(this.account).subscribe(
       response => {
-        this.addClient();
-        form.reset();
+        this.status = 'success';
+        setTimeout(()=>{
+          this.status = '';
+          this.img = ''
+        },1000);
       },
       error => {
         this.status = 'failed';
       }
     );
     
-  }
-
-  addClient(){
-    this._clientService.saveClient(this.client).subscribe(
-      response => {
-        if (response == null) {
-          this.status = 'success';
-          setTimeout(()=>{
-            this.status = '';
-            this.img = ''
-          },1000);
-        } else {
-          this.status = 'failed';
-        }
-      },
-      error => {
-        console.log(<any>error);
-      }
-    )
   }
 
   validator() {
