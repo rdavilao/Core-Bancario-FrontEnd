@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Transaction } from '../../../models/transaction';
 import { TransactionService } from '../../../services/transaction.service';
 
@@ -8,7 +8,7 @@ import { TransactionService } from '../../../services/transaction.service';
   styleUrls: ['./credit-card.component.css'],
   providers: [TransactionService]
 })
-export class CreditCardPaymentComponent implements OnInit {
+export class CreditCardPaymentComponent {
 
   public title: string;
   public transaction: Transaction;
@@ -21,9 +21,6 @@ export class CreditCardPaymentComponent implements OnInit {
   ) {
     this.title = 'Pago de tarjetas de crédito.';
     this.transaction = new Transaction('', '', '', new Date(), 'Pago Tarjeta', '', 0, 0);
-  }
-
-  ngOnInit(): void {
   }
 
   newTransaction(form): void {

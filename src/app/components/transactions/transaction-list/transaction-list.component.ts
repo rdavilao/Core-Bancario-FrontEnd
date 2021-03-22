@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Transaction } from '../../../models/transaction';
 import { TransactionService } from '../../../services/transaction.service';
 
@@ -8,7 +8,7 @@ import { TransactionService } from '../../../services/transaction.service';
   styleUrls: ['./transaction-list.component.css'],
   providers: [TransactionService]
 })
-export class TransactionListComponent implements OnInit {
+export class TransactionListComponent {
 
   public title: string;
   public identification: string;
@@ -22,9 +22,6 @@ export class TransactionListComponent implements OnInit {
     this.title = 'Lista de transacciones';
     this.type = 'all';
     this.limit = 1;
-  }
-
-  ngOnInit(): void {
   }
 
   getTransactions(): void {

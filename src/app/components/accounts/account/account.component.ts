@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Account } from '../../../models/account';
 import { AccountService } from '../../../services/account.service';
 
@@ -8,7 +8,7 @@ import { AccountService } from '../../../services/account.service';
   styleUrls: ['./account.component.css'],
   providers: [AccountService]
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent {
 
   public title: string;
   public showA: string;
@@ -19,9 +19,6 @@ export class AccountComponent implements OnInit {
   ) {
     this.title = 'Creación de cuentas';
     this.account = new Account(null, 1, '', null, null, 0, '');
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit(): void {

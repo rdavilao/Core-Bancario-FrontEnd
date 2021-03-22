@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AccountService } from '../../../services/account.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { AccountService } from '../../../services/account.service';
   styleUrls: ['./account-update.component.css'],
   providers: [AccountService]
 })
-export class AccountUpdateComponent implements OnInit {
+export class AccountUpdateComponent {
 
   public account: string;
 
@@ -16,9 +16,6 @@ export class AccountUpdateComponent implements OnInit {
   ) {
     this.account = '';
    }
-
-  ngOnInit(): void {
-  }
 
   confirm(): void {
     this.accountService.updateStateAccount(this.account).subscribe();

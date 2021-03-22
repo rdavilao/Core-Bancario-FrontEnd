@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { AccountService } from '../../../services/account.service';
 import { AccountUpdateComponent } from '../account-update/account-update.component';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./account-list.component.css'],
   providers: [AccountService]
 })
-export class AccountListComponent implements OnInit, AfterViewInit {
+export class AccountListComponent implements AfterViewInit {
 
   public identification: string;
   public title: string;
@@ -27,9 +27,6 @@ export class AccountListComponent implements OnInit, AfterViewInit {
   ) {
     this.title = 'Listado de cuentas';
     this.identification = '';
-  }
-
-  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {

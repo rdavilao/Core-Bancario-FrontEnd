@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Account } from '../../../models/account';
 import { Client } from '../../../models/client/client';
 import { Address } from '../../../models/client/address';
@@ -14,7 +14,7 @@ import { Phone } from 'src/app/models/client/phone';
   styleUrls: ['./client.component.css'],
   providers: [ClientService, AccountService]
 })
-export class ClientComponent implements OnInit {
+export class ClientComponent {
 
   public title: string;
   public account: Account;
@@ -54,9 +54,6 @@ export class ClientComponent implements OnInit {
     this.provinces = this.loadProvinces();
     this.cantones = new Array<string>();
     this.parishes = new Array<string>();
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit(form): void {
