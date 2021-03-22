@@ -17,43 +17,41 @@ export class CreditCardPaymentComponent implements OnInit {
   public img: string;
 
   constructor(
-    private _transactionService: TransactionService
+    private transactionService: TransactionService
   ) {
-    this.title = "Pago de tarjetas de crédito.";
+    this.title = 'Pago de tarjetas de crédito.';
     this.transaction = new Transaction('', '', '', new Date(), 'Pago Tarjeta', '', 0, 0);
   }
 
   ngOnInit(): void {
   }
 
-  newTransaction(form){
-    
+  newTransaction(form): void {
     this.showT = '';
-    this.img = "";
+    this.img = '';
     this.status = '';
-    form.reset(); 
+    form.reset();
   }
 
-  onSubmit(form) {
+  onSubmit(): void {
     this.transaction.identification = this.transaction.account;
-    this.transaction.description = "Pago con monto de: " + this.transaction.mont + " de la tarjeta  " +
-      this.transaction.account + ".";
-    this._transactionService.saveTransactionTC(this.transaction).subscribe(
+    this.transaction.description = 'Pago con monto de: ' + this.transaction.mont + ' de la tarjeta ' +
+      this.transaction.account + '.';
+    this.transactionService.saveTransactionTC(this.transaction).subscribe(
       response => {
         if (response == null) {
           this.status = 'success';
           this.showT = 'success';
-          this.img = "../../../../assets/logo-bb-4.jpeg";
+          this.img = '../../../../assets/logo-bb-4.jpeg';
         } else {
           this.status = 'failed';
         }
       },
       error => {
         this.showT = '';
-        this.img = "";
-        console.log(<any>error);
+        this.img = '';
+        console.log(error);
       }
-    )
+    );
   }
-
 }

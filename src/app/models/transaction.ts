@@ -1,6 +1,6 @@
 export class Transaction{
     constructor(
-        public _id: string,
+        public id: string,
         public identification: string,
         public account: string,
         public creationDate: Date,

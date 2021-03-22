@@ -8,7 +8,7 @@
     <div class="message failed" *ngIf="status == 'failed'">
         La transacción se ha podido realizar.
     </div>
-    <form #transactionForm="ngForm" (ngSubmit)="onSubmit(transactionForm)">
+    <form #transactionForm="ngForm" (ngSubmit)="onSubmit()">
 
         <p>
             <label>Tipo de transacción</label>

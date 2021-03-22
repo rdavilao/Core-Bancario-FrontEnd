@@ -8,33 +8,30 @@ import { urlTransaction } from '../../environments/environment';
 export class TransactionService {
 
     constructor(
-        private _http: HttpClient
+        private http: HttpClient
     ) {
     }
 
-    testService() {
-        return "Probando el servicio de transacciones"
+    saveTransaction(transaction: Transaction): Observable<any> {
+        const params = JSON.stringify(transaction);
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.post(urlTransaction + '/create', params, { headers });
     }
 
-    saveTransaction(transaction: Transaction): Observable<any>{
-        let params = JSON.stringify(transaction);
-        let headers = new HttpHeaders().set('Content-Type','application/json');
-        return this._http.post(urlTransaction+'/create', params, {headers: headers});
+    saveTransactionTC(transaction: Transaction): Observable<any> {
+        const params = JSON.stringify(transaction);
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.post(urlTransaction + '/cardPayment', params, { headers });
     }
 
-    saveTransactionTC(transaction: Transaction): Observable<any>{
-        let params = JSON.stringify(transaction);
-        let headers = new HttpHeaders().set('Content-Type','application/json');
-        return this._http.post(urlTransaction+'/cardPayment', params, {headers: headers});
+    getTransactions(identification: string, limit: number): Observable<any> {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(urlTransaction + '/listXLastTransactions?identification=' + identification + '&limit=' + limit, { headers });
     }
 
-    getTransactions(identification: string, limit: number): Observable<any>{
-        let headers = new HttpHeaders().set('Content-Type','application/json');
-        return this._http.get(urlTransaction+'/listXLastTransactions?identification='+identification+"&limit="+limit,{headers: headers});
-    }
-
-    getTransactionsByType(identification: string, limit: number, type: string): Observable<any>{
-        let headers = new HttpHeaders().set('Content-Type','application/json');
-        return this._http.get(urlTransaction+'/listXLastTransactionsByType?identification='+identification+"&limit="+limit+"&type="+type,{headers: headers});
+    getTransactionsByType(identification: string, limit: number, type: string): Observable<any> {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(urlTransaction + '/listXLastTransactionsByType?identification=' +
+        identification + '&limit=' + limit + '&type=' + type, { headers });
     }
 }

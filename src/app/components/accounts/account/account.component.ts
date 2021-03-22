@@ -10,24 +10,24 @@ import { AccountService } from '../../../services/account.service';
 })
 export class AccountComponent implements OnInit {
 
-  public title:string;
+  public title: string;
   public showA: string;
   public account: Account;
 
   constructor(
-    private _accountService: AccountService
+    private accountService: AccountService
   ) {
-    this.title = "Creación de cuentas";
-    this.account = new Account(null,1,'',null,null,0,'');
+    this.title = 'Creación de cuentas';
+    this.account = new Account(null, 1, '', null, null, 0, '');
   }
 
   ngOnInit(): void {
   }
 
-  onSubmit(form){
+  onSubmit(): void {
     console.log(this.account);
-    this._accountService.saveAccount(this.account).subscribe(
-      response =>{
+    this.accountService.saveAccount(this.account).subscribe(
+      response => {
         console.log(response);
         this.showA = 'success';
       },
@@ -35,7 +35,7 @@ export class AccountComponent implements OnInit {
         this.showA = 'failed';
         console.log(error);
       }
-    )
+    );
   }
 
 }

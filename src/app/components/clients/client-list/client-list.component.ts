@@ -18,61 +18,57 @@ export class ClientListComponent implements OnInit, AfterViewInit {
   public title: string;
   displayedColumns: string[];
   dataSource = new MatTableDataSource();
-  @ViewChild(MatSort, {static:true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private _clientService: ClientService,  
-    public dialog: MatDialog  
-  ) { 
-    this.title = "Listado de clientes";
-    this.typeClient = "";
+    private clientService: ClientService,
+    public dialog: MatDialog
+  ) {
+    this.title = 'Listado de clientes';
+    this.typeClient = '';
   }
 
-  openDialog(identification) {
+  openDialog(identification: string): void {
     const dialogRef = this.dialog.open(ClientUpdateComponent);
 
     dialogRef.componentInstance.identification = identification;
-    if(this.typeClient == "Natural"){
+    if (this.typeClient === 'Natural') {
       dialogRef.componentInstance.isContributor = false;
-    }else{
+    } else {
       dialogRef.componentInstance.isContributor = true;
     }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe();
   }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): any {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.filterPredicate = (data: any, filter) => {
-      const dataStr =JSON.stringify(data).toLowerCase();
-      return dataStr.indexOf(filter) != -1; 
-    }
+      const dataStr = JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) !== -1;
+    };
   }
 
-  onSubmit(form){
-    this._clientService.getClientsByType(this.typeClient).subscribe(
+  onSubmit(): void {
+    this.clientService.getClientsByType(this.typeClient).subscribe(
       response => {
         this.dataSource.data = response;
-        console.log(this.dataSource.data);
       }
     );
-    if(this.typeClient == "Juridico"){
+    if (this.typeClient === 'Juridico') {
       this.displayedColumns = ['identification', 'bussinessName', 'tradeName', 'legalRepresentative', 'email', 'addresses', 'phones', 'actions'];
-    }else{
+    } else {
       this.displayedColumns = ['identification', 'names', 'surnames', 'email', 'addresses', 'phones', 'actions'];
     }
   }
-
 }
