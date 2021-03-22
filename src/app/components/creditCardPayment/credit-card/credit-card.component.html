@@ -28,7 +28,7 @@
     <div *ngIf="showT == 'success'">
         <mat-card class="transaction">
             <h2>
-                <img src={{img}} height="27px" />
+                <img src={{img}} height="27px" alt="LogoCreditCard" />
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{transaction.type}}
             </h2>
             <p>Fecha: {{transaction.creationDate | date : "medium"}}</p>

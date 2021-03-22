@@ -4,7 +4,6 @@ import { AccountService } from '../../../services/account.service';
 @Component({
   selector: 'app-account-update',
   templateUrl: './account-update.component.html',
-  styleUrls: ['./account-update.component.css'],
   providers: [AccountService]
 })
 export class AccountUpdateComponent {

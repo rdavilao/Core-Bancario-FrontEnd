@@ -22,7 +22,7 @@
         <p class="spacer"></p>
 
         <div *ngIf="!isContributor">
-            <h3><b>Dirección Domiciliaria</b>
+            <h3><strong>Dirección Domiciliaria</strong>
                 <input type="button" class="buttonAdd" (click)="activateForm('address');" value="Agregar nueva dirección" />
             </h3>
             <div class="message success" *ngIf="statusAddress == 'success'">
@@ -86,7 +86,8 @@
                 </form>
             </div>
 
-            <table>
+            <table aria-describedby="Tabla de direcciones de usuarios.">
+                <th id="addresses"></th>
                 <tr>
                     <td *ngFor="let dir of client.addresses; index as i">
                         <form #addressForm="ngForm">
@@ -118,7 +119,8 @@
                             <input type="button" class="button" (click)="changeAddress(i)" value="Cambiar ubicación" />
 
                             <div>
-                                <table>
+                                <table aria-describedby="Tabla de opciones.">
+                                    <th id="update"></th>
                                     <tr>
                                         <td>
                                             <input type="button" class="button" (click)="updateAddress(addressForm, i)" value="Actualizar" /></td>
@@ -161,7 +163,7 @@
         </div>
 
         <p class="spacer"></p>
-        <h3><b>Números de contacto</b>
+        <h3><strong>Números de contacto</strong>
             <input type="button" class="buttonAdd" (click)="activateForm('phone')" value="Agregar nuevo contacto" />
         </h3>
 
