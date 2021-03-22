@@ -38,8 +38,8 @@ export class ClientUpdateComponent implements OnInit {
   public iAux: number;
 
   constructor(
-    private _clientService: ClientService,
-    ) {
+    private clientService: ClientService,
+  ) {
     this.activateChangeAddress = '';
     this.identification = '';
     this.activateForms = '';
@@ -55,48 +55,45 @@ export class ClientUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._clientService.getClientById(this.identification).subscribe(
+    this.clientService.getClientById(this.identification).subscribe(
       response => {
         this.client = response;
         this.addresses = this.client.addresses;
         this.phones = this.client.phones;
       }
-    )
+    );
   }
 
-  onSubmit(form) { 
-  }
-
-  confirmUpdate() {
-    this._clientService.updateClient(this.client).subscribe(
-      response =>{
+  confirmUpdate(): void {
+    this.clientService.updateClient(this.client).subscribe(
+      response => {
         this.status = 'success';
       }
-    )
+    );
   }
 
-  activateForm(option){
-    if(this.activateForms == ''){
+  activateForm(option): void {
+    if (this.activateForms === '') {
       this.activateForms = option;
-    }else{
+    } else {
       this.activateForms = '';
-    }      
+    }
   }
 
-  activateChangePlace(){
-    if(this.changePlace == ''){
+  activateChangePlace(): void {
+    if (this.changePlace === '') {
       this.changePlace = 'change';
-    }else{
+    } else {
       this.changePlace = '';
     }
   }
 
-  addAddress(form) {
-    var address = new Address('', '', '', '', '', '', '', '');
+  addAddress(form): void {
+    const address = new Address('', '', '', '', '', '', '', '');
     address.type = form.form.value.type;
     address.mainStreet = form.form.value.mainStreet;
     address.sideStreet = form.form.value.sideStreet;
-    address.number = form.form.value.number;
+    address.numberAddress = form.form.value.number;
     address.reference = form.form.value.reference;
     address.province = form.form.value.province;
     address.canton = form.form.value.canton;
@@ -105,77 +102,76 @@ export class ClientUpdateComponent implements OnInit {
     console.log(this.client);
     form.reset();
     this.statusAddress = 'success';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusAddress = '';
       this.activateForms = '';
-    },1000);
+    }, 1000);
   }
 
-  addPhones(form) {
-    var phone = new Phone('', '');
+  addPhones(form): void {
+    const phone = new Phone('', '');
     phone.type = form.form.value.type;
     phone.value = form.form.value.value;
     this.client.phones.push(phone);
     form.reset();
     this.statusPhone = 'success';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusPhone = '';
       this.activateForms = '';
-    },1000);
+    }, 1000);
   }
 
-  updateAddress(form, index) {
+  updateAddress(form, index: number): void {
     this.addresses[index].type = form.form.value.type;
     this.addresses[index].mainStreet = form.form.value.mainStreet;
     this.addresses[index].sideStreet = form.form.value.sideStreet;
-    this.addresses[index].number = form.form.value.number;
+    this.addresses[index].numberAddress = form.form.value.number;
     this.addresses[index].reference = form.form.value.reference;
     this.client.addresses = this.addresses;
-    console.log(this.addresses);
     this.statusAddress = 'successUpdate';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusAddress = '';
-    },1000);
+    }, 1000);
   }
 
-  updatePhones(form, index) {
+  updatePhones(form, index: number): void {
     this.phones[index].type = form.form.value.type;
     this.phones[index].value = form.form.value.value;
     this.client.phones = this.phones;
     this.statusPhone = 'successUpdate';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusPhone = '';
-    },1000);
+    }, 1000);
   }
 
-  deleteAddress(index) {
-    if(this.client.addresses.length > 1){
-      this.client.addresses.splice(index,1);
-    }else{
+  deleteAddress(index: number): void {
+    if (this.client.addresses.length > 1) {
+      this.client.addresses.splice(index, 1);
+    } else {
       this.statusAddress = 'failedDelete';
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusAddress = '';
-    },2000);
+    }, 2000);
   }
 
-  deletePhone(index) {
-    if(this.client.phones.length > 1){
-      this.client.phones.splice(index,1);
-    }else{
+  deletePhone(index: number): void {
+    if (this.client.phones.length > 1) {
+      this.client.phones.splice(index, 1);
+    } else {
       this.statusPhone = 'failedDelete';
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusPhone = '';
-    },1000);
+    }, 1000);
   }
 
-  changeAddress(i){
+  changeAddress(i: number): void {
     this.activateChangeAddress = 'activate';
     this.iAux = i;
   }
 
-  confirmChangeAddress(){
+  confirmChangeAddress(): void {
     this.activateChangeAddress = '';
     this.client.addresses[this.iAux].province = this.provinceAux;
     this.client.addresses[this.iAux].canton = this.cantonAux;
@@ -184,40 +180,39 @@ export class ClientUpdateComponent implements OnInit {
 
   }
 
-  loadProvinces() {
-    var provinces = new Array<string>();
-    this._clientService.getProvince().subscribe(
+  loadProvinces(): any {
+    const provinces = new Array<string>();
+    this.clientService.getProvince().subscribe(
       response => {
-        for (var item of response) {
+        for (const item of response) {
           provinces.push(item);
         }
       }
     );
-    this.loadCantones("PICHINCHA");
-    this.loadParish("QUITO");
+    this.loadCantones('PICHINCHA');
+    this.loadParish('QUITO');
     return provinces;
   }
 
-  loadCantones(province) {
+  loadCantones(province): void {
     this.cantones = new Array<string>();
-    this._clientService.getUbication(province, 'CANTON').subscribe(
+    this.clientService.getUbication(province, 'CANTON').subscribe(
       response => {
-        for (var item of response) {
+        for (const item of response) {
           this.cantones.push(item);
         }
       }
     );
   }
 
-  loadParish(canton) {
+  loadParish(canton): void {
     this.parishes = new Array<string>();
-    this._clientService.getUbication(canton, 'PARROQUIA').subscribe(
+    this.clientService.getUbication(canton, 'PARROQUIA').subscribe(
       response => {
-        for (var item of response) {
+        for (const item of response) {
           this.parishes.push(item);
         }
       }
     );
   }
-
 }

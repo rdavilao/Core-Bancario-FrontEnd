@@ -11,51 +11,48 @@ import { TransactionService } from '../../../services/transaction.service';
 export class TransactionListComponent implements OnInit {
 
   public title: string;
-  public identification:string;
-  public limit:number;
-  public type:string;
+  public identification: string;
+  public limit: number;
+  public type: string;
   public transactions: Transaction[];
 
   constructor(
-    private _transactionService: TransactionService
-  ) { 
-    this.title = "Lista de transacciones";
-    this.type = "all";
+    private transactionService: TransactionService
+  ) {
+    this.title = 'Lista de transacciones';
+    this.type = 'all';
     this.limit = 1;
   }
 
   ngOnInit(): void {
   }
 
-  getTransactions(form) {
-    if(this.type == "all"){
-      this._transactionService.getTransactions(this.identification,this.limit).subscribe(
+  getTransactions(): void {
+    if (this.type === 'all') {
+      this.transactionService.getTransactions(this.identification, this.limit).subscribe(
         response => {
-          console.log(response);
-          if(response){
+          if (response) {
             this.transactions = response;
           }
         },
         error => {
           this.transactions = null;
-          console.log(<any>error);
+          console.log(error);
         }
       );
-    }else{
-      this._transactionService.getTransactionsByType(this.identification,this.limit,this.type).subscribe(
+    } else {
+      this.transactionService.getTransactionsByType(this.identification, this.limit, this.type).subscribe(
         response => {
           console.log(response);
-          if(response){
+          if (response) {
             this.transactions = response;
           }
         },
         error => {
           this.transactions = null;
-          console.log(<any>error);
+          console.log(error);
         }
       );
     }
-    
   }
-
 }

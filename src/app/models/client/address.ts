@@ -3,7 +3,7 @@ export class Address{
         public type: string,
         public mainStreet: string,
         public sideStreet: string,
-        public number: string,
+        public numberAddress: string,
         public reference: string,
         public province: string,
         public canton: string,

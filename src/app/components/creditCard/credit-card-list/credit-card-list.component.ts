@@ -20,54 +20,51 @@ export class CreditCardListComponent implements OnInit, AfterViewInit {
   public creditCards: CreditCardRQ[];
   displayedColumns: string[] = ['number', 'account', 'balanceAccount', 'limitAccount', 'expirationDate', 'actions'];
   dataSource = new MatTableDataSource();
-  @ViewChild(MatSort, {static:true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private _creditCardService: CreditCardService,  
+    private creditCardService: CreditCardService,
     public dialog: MatDialog
   ) {
-    this.title = "Lista de tarjetas de crédito";
+    this.title = 'Lista de tarjetas de crédito';
   }
 
   ngOnInit(): void {
   }
 
-  getCreditCard(form) {
-    this._creditCardService.getCreditCardsByIdentification(this.identification).subscribe(
+  getCreditCard(): void {
+    this.creditCardService.getCreditCardsByIdentification(this.identification).subscribe(
       response => {
-        if(response){
+        if (response) {
           this.dataSource.data = response;
-          console.log(this.dataSource.data);
         }
       },
       error => {
         this.creditCards = [];
-        console.log(<any>error);
+        console.log(error);
       }
     );
   }
-  
-  ngAfterViewInit() {
+
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): any {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.filterPredicate = (data: any, filter) => {
-      const dataStr =JSON.stringify(data).toLowerCase();
-      return dataStr.indexOf(filter) != -1; 
-    }
+      const dataStr = JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) !== -1;
+    };
   }
-  
-  openDialog(number) {
+
+  openDialog(numberCreditCard): void {
     const dialogRef = this.dialog.open(CreditCardUpdateComponent);
-    dialogRef.componentInstance.number = number;
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.componentInstance.numberCreditCard = numberCreditCard;
+    dialogRef.afterClosed().subscribe();
   }
 
 }

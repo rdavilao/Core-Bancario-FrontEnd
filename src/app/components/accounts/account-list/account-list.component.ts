@@ -18,48 +18,46 @@ export class AccountListComponent implements OnInit, AfterViewInit {
   public title: string;
   displayedColumns: string[] = ['number', 'type', 'creationDate', 'balance', 'status', 'actions'];
   dataSource = new MatTableDataSource();
-  @ViewChild(MatSort, {static:true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private _accountService: AccountService,  
-    public dialog: MatDialog  
-    ) { 
-      this.title = "Listado de cuentas";
-      this.identification = "";
-    }
+    private accountService: AccountService,
+    public dialog: MatDialog
+  ) {
+    this.title = 'Listado de cuentas';
+    this.identification = '';
+  }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): any {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.filterPredicate = (data: any, filter) => {
-      const dataStr =JSON.stringify(data).toLowerCase();
-      return dataStr.indexOf(filter) != -1; 
-    }
+      const dataStr = JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) !== -1;
+    };
   }
 
-  onSubmit(form){
-    this._accountService.getAccountsByIdentification(this.identification).subscribe(
+  onSubmit(): void {
+    this.accountService.getAccountsByIdentification(this.identification).subscribe(
       response => {
         this.dataSource.data = response;
       }
     );
   }
-  
-  openDialog(number) {
+
+  openDialog(account: string): void {
     const dialogRef = this.dialog.open(AccountUpdateComponent);
-    dialogRef.componentInstance.number = number;
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.componentInstance.account = account;
+    dialogRef.afterClosed().subscribe();
   }
 
 }

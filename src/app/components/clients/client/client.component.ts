@@ -36,15 +36,15 @@ export class ClientComponent implements OnInit {
   public statusPhone: string;
 
   constructor(
-    private _clientService: ClientService,
-    private _accountService: AccountService
+    private clientService: ClientService,
+    private accountService: AccountService
   ) {
     this.validatorMensaje = '';
     this.img = '';
     this.isContributor = false;
-    this.title = "Crear cliente";
-    this.account = new Account(null,1,'',null,null,0,'');
-    this.client = new Client(null, null, null, null, null, new Date(), new Array<Address>(), '', new Array, null, null);
+    this.title = 'Crear cliente';
+    this.account = new Account(null, 1, '', null, null, 0, '');
+    this.client = new Client(null, null, null, null, null, new Date(), new Array<Address>(), '', new Array<Phone>(), null, null);
     this.contributor = new Contributor('', '', null);
     this.legalRepresentative = new LegalRepresentative('', '', '');
     this.address = new Address(null, null, null, null, null, 'PICHINCHA', 'QUITO', 'ALANGASI');
@@ -59,105 +59,105 @@ export class ClientComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(form){
-    this._clientService.saveClient(this.client).subscribe(
+  onSubmit(form): void {
+    this.clientService.saveClient(this.client).subscribe(
       response => {
         this.addAccount();
         form.reset();
-        this.client = new Client(null, null, null, null, null, new Date(), new Array<Address>(), '', new Array, null, null);
+        this.client = new Client(null, null, null, null, null, new Date(), new Array<Address>(), '', new Array<Phone>(), null, null);
         this.addresses = new Array<Address>();
         this.phones = new Array<Phone>();
       },
       error => {
-        console.log(<any>error);
+        console.log(error);
       }
-    )
+    );
   }
 
-  addAccount() {
+  addAccount(): void {
     this.account.CLIENT_IDENTIFICATION = this.client.identification;
-    this._accountService.saveAccount(this.account).subscribe(
+    this.accountService.saveAccount(this.account).subscribe(
       response => {
         this.status = 'success';
-        setTimeout(()=>{
+        setTimeout(() => {
           this.status = '';
-          this.img = ''
-        },1000);
+          this.img = '';
+        }, 1000);
       },
       error => {
         this.status = 'failed';
       }
     );
-    
+
   }
 
-  validator() {
-    if (this.client.identification.length == 10) {
-      this._clientService.validatorExistenceRC(this.client.identification).subscribe(
+  validator(): void {
+    if (this.client.identification.length === 10) {
+      this.clientService.validatorExistenceRC(this.client.identification).subscribe(
         responseP => {
-          this._clientService.validatorListaObservado(this.client.identification).subscribe(
+          this.clientService.validatorListaObservado(this.client.identification).subscribe(
             response => {
               this.img = '';
-              this.validatorMensaje = "Persona encontrada en lista de observados por motivos de: ";
-              for (var _i = 0; _i < response.persona.motivo.length; _i++) {
-                this.validatorMensaje += response.persona.motivo[_i].descrpcion + ". ";
+              this.validatorMensaje = 'Persona encontrada en lista de observados por motivos de: ';
+              for (const item of response.persona.motivo) {
+                this.validatorMensaje += item.descrpcion + '. ';
               }
             },
             error => {
-              this._clientService.validatorExistenceBB(this.client.identification).subscribe(
-                response =>{
+              this.clientService.validatorExistenceBB(this.client.identification).subscribe(
+                response => {
                   this.img = '';
-                  this.validatorMensaje = "La persona ya es cliente del Banco Banquito.";
+                  this.validatorMensaje = 'La persona ya es cliente del Banco Banquito.';
                 },
-                error => {
+                secondError => {
                   this.isContributor = false;
                   this.validatorMensaje = '';
                   this.img = '../../../../assets/correct.png';
                   this.generateClient(responseP);
                 }
-              )
+              );
             }
-          )
+          );
         }, error => {
-          this.img = ''
-          this.validatorMensaje = "Persona no registrada en el Registro Civil.";
+          this.img = '';
+          this.validatorMensaje = 'Persona no registrada en el Registro Civil.';
         }
-      )
+      );
     } else {
-      this._clientService.validatorExistenceSRI(this.client.identification).subscribe(
+      this.clientService.validatorExistenceSRI(this.client.identification).subscribe(
         responseP => {
-          this._clientService.validatorListaObservado(responseP.representanteLegal.cedula).subscribe(
+          this.clientService.validatorListaObservado(responseP.representanteLegal.cedula).subscribe(
             response => {
-              this.img = ''
-              this.validatorMensaje = "Representante legal encontrado en lista de observados por motivos de: ";
-              for (var _i = 0; _i < response.persona.motivo.length; _i++) {
-                this.validatorMensaje += response.persona.motivo[_i].descrpcion + ". ";
+              this.img = '';
+              this.validatorMensaje = 'Representante legal encontrado en lista de observados por motivos de: ';
+              for (const item of response.persona.motivo) {
+                this.validatorMensaje += item.descrpcion + '. ';
               }
             },
             error => {
-              this._clientService.validatorExistenceBB(this.client.identification).subscribe(
-                response =>{
+              this.clientService.validatorExistenceBB(this.client.identification).subscribe(
+                response => {
                   this.img = '';
-                  this.validatorMensaje = "Contribuyente registrado en el sistema de Banco Banquito.";
+                  this.validatorMensaje = 'Contribuyente registrado en el sistema de Banco Banquito.';
                 },
-                error => {
+                secondError => {
                   this.isContributor = true;
                   this.generateContributor(responseP);
                   this.validatorMensaje = '';
-                  this.img = '../../../../assets/correct.png'
+                  this.img = '../../../../assets/correct.png';
                 }
-              )
+              );
             }
-          )
+          );
         }, error => {
-          this.img = ''
-          this.validatorMensaje = "Contribuyente no registrada en el SRI.";
+          this.img = '';
+          this.validatorMensaje = 'Contribuyente no registrada en el SRI.';
         }
-      )
+      );
     }
   }
 
-  generateClient(response) {
+  generateClient(response): void {
     this.client.names = response.nombres;
     this.client.surnames = response.apellidos;
     this.client.genre = response.genero;
@@ -165,19 +165,19 @@ export class ClientComponent implements OnInit {
     this.client.nationality = response.nacionalidad.id;
   }
 
-  generateContributor(response) {
+  generateContributor(response): void {
     this.client.birthdate = response.fechaInicioActividades;
     this.client.names = response.razonSocial;
-    for (let address of response.establecimiento) {
-      var dir = new Address('', '', '', '', '', '', '', '');
-      if(address.matriz){
-        dir.type = "Matriz";
-      }else{
-        dir.type = "Sucursal";        
+    for (const address of response.establecimiento) {
+      const dir = new Address('', '', '', '', '', '', '', '');
+      if (address.matriz) {
+        dir.type = 'Matriz';
+      } else {
+        dir.type = 'Sucursal';
       }
       dir.mainStreet = address.ubicacionComercial.calle;
       dir.sideStreet = address.ubicacionComercial.interseccion;
-      dir.number = address.ubicacionComercial.number;
+      dir.numberAddress = address.ubicacionComercial.number;
       dir.province = address.ubicacionComercial.provincia;
       dir.canton = address.ubicacionComercial.canton;
       dir.parish = address.ubicacionComercial.PARROQUIA;
@@ -190,15 +190,14 @@ export class ClientComponent implements OnInit {
     this.contributor.tradeName = response.razonSocial;
     this.contributor.legalRepresentative = this.legalRepresentative;
     this.client.contributor = this.contributor;
-    console.log(this.client);
   }
 
-  addAddress(form) {
-    var address = new Address('', '', '', '', '', '', '', '');
+  addAddress(form): void {
+    const address = new Address('', '', '', '', '', '', '', '');
     address.type = form.form.value.type;
     address.mainStreet = form.form.value.mainStreet;
     address.sideStreet = form.form.value.sideStreet;
-    address.number = form.form.value.number;
+    address.numberAddress = form.form.value.number;
     address.reference = form.form.value.reference;
     address.province = form.form.value.province;
     address.canton = form.form.value.canton;
@@ -206,53 +205,53 @@ export class ClientComponent implements OnInit {
     this.client.addresses.push(address);
     form.reset();
     this.statusAddress = 'success';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusAddress = '';
-    },1000);
+    }, 1000);
   }
 
-  addPhones(form) {
-    var phone = new Phone('', '');
+  addPhones(form): void {
+    const phone = new Phone('', '');
     phone.type = form.form.value.type;
     phone.value = form.form.value.value;
     this.client.phones.push(phone);
     form.reset();
     this.statusPhone = 'success';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusPhone = '';
-    },1000);
+    }, 1000);
   }
 
-  loadProvinces() {
-    var provinces = new Array<string>();
-    this._clientService.getProvince().subscribe(
+  loadProvinces(): any {
+    const provinces = new Array<string>();
+    this.clientService.getProvince().subscribe(
       response => {
-        for (var item of response) {
+        for (const item of response) {
           provinces.push(item);
         }
       }
     );
-    this.loadCantones("PICHINCHA");
-    this.loadParish("QUITO");
+    this.loadCantones('PICHINCHA');
+    this.loadParish('QUITO');
     return provinces;
   }
 
-  loadCantones(province) {
+  loadCantones(province): void {
     this.cantones = new Array<string>();
-    this._clientService.getUbication(province, 'CANTON').subscribe(
+    this.clientService.getUbication(province, 'CANTON').subscribe(
       response => {
-        for (var item of response) {
+        for (const item of response) {
           this.cantones.push(item);
         }
       }
     );
   }
 
-  loadParish(canton) {
+  loadParish(canton): void {
     this.parishes = new Array<string>();
-    this._clientService.getUbication(canton, 'PARROQUIA').subscribe(
+    this.clientService.getUbication(canton, 'PARROQUIA').subscribe(
       response => {
-        for (var item of response) {
+        for (const item of response) {
           this.parishes.push(item);
         }
       }

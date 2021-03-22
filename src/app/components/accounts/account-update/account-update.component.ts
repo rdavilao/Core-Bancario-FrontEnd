@@ -9,19 +9,19 @@ import { AccountService } from '../../../services/account.service';
 })
 export class AccountUpdateComponent implements OnInit {
 
-  public number: string;
+  public account: string;
 
   constructor(
-    private _accountService: AccountService
+    private accountService: AccountService
   ) {
-    this.number = "";
+    this.account = '';
    }
 
   ngOnInit(): void {
   }
 
-  confirm(){    
-    this._accountService.updateStateAccount(this.number).subscribe();
+  confirm(): void {
+    this.accountService.updateStateAccount(this.account).subscribe();
   }
 
 }

@@ -9,17 +9,17 @@ import { CreditCardService } from '../../../services/creditCard.service';
 })
 export class CreditCardUpdateComponent implements OnInit {
 
-  public number: string;
+  public numberCreditCard: string;
 
   constructor(
-    private _creditCardService: CreditCardService
+    private creditCardService: CreditCardService
   ) { }
 
   ngOnInit(): void {
   }
 
-  confirm(){    
-    this._creditCardService.updateStateCreditCard(this.number).subscribe();
+  confirm(): void{
+    this.creditCardService.updateStateCreditCard(this.numberCreditCard).subscribe();
   }
 
 }
