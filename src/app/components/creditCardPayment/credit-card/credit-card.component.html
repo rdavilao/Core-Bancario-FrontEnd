@@ -8,7 +8,7 @@
     <div class="message failed" *ngIf="status == 'failed'">
         A ocurrido un error en el pago de la tarjeta.
     </div>
-    <form #transactionForm="ngForm" (ngSubmit)="onSubmit(transactionForm)">
+    <form #transactionForm="ngForm" (ngSubmit)="onSubmit()">
         <p *ngIf="transaction.type!='Pago'">
             <label for="account">Número de tarjeta de crédito</label>
             <input type="text" name="account" #account="ngModel" [(ngModel)]="transaction.account" required>

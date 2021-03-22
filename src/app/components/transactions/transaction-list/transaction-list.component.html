@@ -1,6 +1,6 @@
 <div class="container">
     <h2>{{title}}</h2>
-    <form #transactionListForm="ngForm" (ngSubmit)="getTransactions(transactionListForm)">
+    <form #transactionListForm="ngForm" (ngSubmit)="getTransactions()">
         <p>
             <label for="identification" *ngIf="type!='Pago'">Documento de identificación</label>
             <label for="identification" *ngIf="type=='Pago'">Pago identificador</label>

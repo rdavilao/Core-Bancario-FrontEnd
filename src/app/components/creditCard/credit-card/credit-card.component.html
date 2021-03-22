@@ -8,7 +8,7 @@
     <div class="message failed" *ngIf="showA == 'failed'">
         A ocurrido un error en la creación de la tarjeta de crédito.
     </div>
-    <form #creditCardForm="ngForm" (ngSubmit)="onSubmit(creditCardForm)">
+    <form #creditCardForm="ngForm" (ngSubmit)="onSubmit()">
 
         <p>
             <label for="identification">Documento de identificación</label>

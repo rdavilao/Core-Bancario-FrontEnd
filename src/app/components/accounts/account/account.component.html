@@ -8,7 +8,7 @@
     <div class="message failed" *ngIf="showA == 'failed'">
         A ocurrido un error en la creación de la cuenta.
     </div>
-    <form #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)">
+    <form #accountForm="ngForm" (ngSubmit)="onSubmit()">
 
         <p>
             <label>Tipo de cuenta:</label>
