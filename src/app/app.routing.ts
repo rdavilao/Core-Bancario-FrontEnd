@@ -12,7 +12,6 @@ import { CreditCardPaymentComponent } from './components/creditCardPayment/credi
 import { CreditCardPaymentListComponent } from './components/creditCardPayment/credit-card-list/credit-card-list.component';
 import { CreditCardComponent } from './components/creditCard/credit-card/credit-card.component';
 import { CreditCardListComponent } from './components/creditCard/credit-card-list/credit-card-list.component';
-import { ErrorComponent } from './components/error/error.component';
 
 const appRoutes: Routes = [
     { path: '', component: ClientComponent },
@@ -27,8 +26,7 @@ const appRoutes: Routes = [
     { path: 'creditCardPayment', component: CreditCardPaymentComponent },
     { path: 'creditCardPayment/list', component: CreditCardPaymentListComponent },
     { path: 'creditCard', component: CreditCardComponent },
-    { path: 'creditCard/list', component: CreditCardListComponent },
-    { path: '**', component: ErrorComponent }
+    { path: 'creditCard/list', component: CreditCardListComponent }
 ];
 
 export const appRoutingProviders: any[] = [];

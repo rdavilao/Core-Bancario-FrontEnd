@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { ClientService } from '../../../services/client.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,7 +12,7 @@ import { ClientUpdateComponent } from '../client-update/client-update.component'
   styleUrls: ['./client-list.component.css'],
   providers: [ClientService]
 })
-export class ClientListComponent implements OnInit, AfterViewInit {
+export class ClientListComponent implements AfterViewInit {
 
   public typeClient: string;
   public title: string;
@@ -40,9 +40,6 @@ export class ClientListComponent implements OnInit, AfterViewInit {
     }
 
     dialogRef.afterClosed().subscribe();
-  }
-
-  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {

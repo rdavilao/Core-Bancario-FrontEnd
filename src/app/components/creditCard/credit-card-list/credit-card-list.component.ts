@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { CreditCardService } from '../../../services/creditCard.service';
 import { CreditCardUpdateComponent } from '../credit-card-update/credit-card-update.component';
 import { CreditCardRQ } from '../../../models/creditCard';
@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./credit-card-list.component.css'],
   providers: [CreditCardService]
 })
-export class CreditCardListComponent implements OnInit, AfterViewInit {
+export class CreditCardListComponent implements AfterViewInit {
 
   public title: string;
   public identification: string;
@@ -28,9 +28,6 @@ export class CreditCardListComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog
   ) {
     this.title = 'Lista de tarjetas de crédito';
-  }
-
-  ngOnInit(): void {
   }
 
   getCreditCard(): void {

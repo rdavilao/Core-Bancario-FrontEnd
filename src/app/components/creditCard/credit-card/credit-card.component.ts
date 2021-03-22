@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CreditCard } from '../../../models/creditCard';
-import { CreditCardRQ } from '../../../models/creditCard';
+import { Component } from '@angular/core';
+import { CreditCard, CreditCardRQ } from '../../../models/creditCard';
 import { CreditCardService } from '../../../services/creditCard.service';
 import { Account } from '../../../models/account';
 import { AccountService } from '../../../services/account.service';
@@ -11,7 +10,7 @@ import { AccountService } from '../../../services/account.service';
   styleUrls: ['./credit-card.component.css'],
   providers: [AccountService, CreditCardService]
 })
-export class CreditCardComponent implements OnInit {
+export class CreditCardComponent {
 
   public title: string;
   public creditCardAditional: string;
@@ -33,9 +32,6 @@ export class CreditCardComponent implements OnInit {
     this.creditCard = new CreditCard(null, 0, '', 0, '', null, null, '');
     this.creditCardRQ = new CreditCardRQ(null, '', 0, null, 0);
     this.creditCards = new Array<CreditCardRQ>();
-  }
-
-  ngOnInit(): void {
   }
 
   getCreditCards(): void {
