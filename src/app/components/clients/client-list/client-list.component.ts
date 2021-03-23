@@ -17,7 +17,7 @@ export class ClientListComponent implements AfterViewInit {
   public typeClient: string;
   public title: string;
   displayedColumns: string[];
-  dataSource = new MatTableDataSource();
+  dataSourceClient = new MatTableDataSource();
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -43,14 +43,14 @@ export class ClientListComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSourceClient.paginator = this.paginator;
+    this.dataSourceClient.sort = this.sort;
   }
 
   applyFilter(event: Event): any {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.dataSource.filterPredicate = (data: any, filter) => {
+    this.dataSourceClient.filter = filterValue.trim().toLowerCase();
+    this.dataSourceClient.filterPredicate = (data: any, filter) => {
       const dataStr = JSON.stringify(data).toLowerCase();
       return dataStr.indexOf(filter) !== -1;
     };
@@ -59,13 +59,13 @@ export class ClientListComponent implements AfterViewInit {
   onSubmit(): void {
     this.clientService.getClientsByType(this.typeClient).subscribe(
       response => {
-        this.dataSource.data = response;
+        this.dataSourceClient.data = response;
       }
     );
     if (this.typeClient === 'Juridico') {
-      this.displayedColumns = ['identification', 'bussinessName', 'tradeName', 'legalRepresentative', 'email', 'addresses', 'phones', 'actions'];
+      this.displayedColumns = ['identification', 'bussinessName', 'tradeName', 'legalRepresentative', 'email', 'addresses', 'phones', 'actionsClientList'];
     } else {
-      this.displayedColumns = ['identification', 'names', 'surnames', 'email', 'addresses', 'phones', 'actions'];
+      this.displayedColumns = ['identification', 'names', 'surnames', 'email', 'addresses', 'phones', 'actionsClientList'];
     }
   }
 }

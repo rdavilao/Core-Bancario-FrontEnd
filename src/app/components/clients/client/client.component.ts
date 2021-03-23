@@ -26,8 +26,8 @@ export class ClientComponent {
   public addresses: Address[];
   public phones: Phone[];
   public provinces: string[];
-  public cantones: string[];
-  public parishes: string[];
+  public cantonesClient: string[];
+  public parishesClient: string[];
   public validatorMensaje: string;
   public img: string;
   public isContributor: boolean;
@@ -52,8 +52,8 @@ export class ClientComponent {
     this.addresses = new Array<Address>();
     this.phones = new Array<Phone>();
     this.provinces = this.loadProvinces();
-    this.cantones = new Array<string>();
-    this.parishes = new Array<string>();
+    this.cantonesClient = new Array<string>();
+    this.parishesClient = new Array<string>();
   }
 
   onSubmit(form): void {
@@ -190,16 +190,16 @@ export class ClientComponent {
   }
 
   addAddress(form): void {
-    const address = new Address('', '', '', '', '', '', '', '');
-    address.type = form.form.value.type;
-    address.mainStreet = form.form.value.mainStreet;
-    address.sideStreet = form.form.value.sideStreet;
-    address.numberAddress = form.form.value.number;
-    address.reference = form.form.value.reference;
-    address.province = form.form.value.province;
-    address.canton = form.form.value.canton;
-    address.parish = form.form.value.parish;
-    this.client.addresses.push(address);
+    const addressClient = new Address('', '', '', '', '', '', '', '');
+    addressClient.type = form.form.value.type;
+    addressClient.mainStreet = form.form.value.mainStreet;
+    addressClient.sideStreet = form.form.value.sideStreet;
+    addressClient.numberAddress = form.form.value.number;
+    addressClient.reference = form.form.value.reference;
+    addressClient.province = form.form.value.province;
+    addressClient.canton = form.form.value.canton;
+    addressClient.parish = form.form.value.parish;
+    this.client.addresses.push(addressClient);
     form.reset();
     this.statusAddress = 'success';
     setTimeout(() => {
@@ -220,36 +220,36 @@ export class ClientComponent {
   }
 
   loadProvinces(): any {
-    const provinces = new Array<string>();
+    const provincesClient = new Array<string>();
     this.clientService.getProvince().subscribe(
       response => {
         for (const item of response) {
-          provinces.push(item);
+          provincesClient.push(item);
         }
       }
     );
     this.loadCantones('PICHINCHA');
     this.loadParish('QUITO');
-    return provinces;
+    return provincesClient;
   }
 
   loadCantones(province): void {
-    this.cantones = new Array<string>();
+    this.cantonesClient = new Array<string>();
     this.clientService.getUbication(province, 'CANTON').subscribe(
       response => {
         for (const item of response) {
-          this.cantones.push(item);
+          this.cantonesClient.push(item);
         }
       }
     );
   }
 
   loadParish(canton): void {
-    this.parishes = new Array<string>();
+    this.parishesClient = new Array<string>();
     this.clientService.getUbication(canton, 'PARROQUIA').subscribe(
       response => {
         for (const item of response) {
-          this.parishes.push(item);
+          this.parishesClient.push(item);
         }
       }
     );

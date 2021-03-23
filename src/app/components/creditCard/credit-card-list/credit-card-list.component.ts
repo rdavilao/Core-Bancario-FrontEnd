@@ -18,7 +18,7 @@ export class CreditCardListComponent implements AfterViewInit {
   public title: string;
   public identification: string;
   public creditCards: CreditCardRQ[];
-  displayedColumns: string[] = ['number', 'account', 'balanceAccount', 'limitAccount', 'expirationDate', 'actions'];
+  displayedColumns: string[] = ['number', 'account', 'balanceAccount', 'limitAccount', 'expirationDate', 'actionsCreditCard'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -58,7 +58,7 @@ export class CreditCardListComponent implements AfterViewInit {
     };
   }
 
-  openDialog(numberCreditCard): void {
+  openDialogCreditCard(numberCreditCard): void {
     const dialogRef = this.dialog.open(CreditCardUpdateComponent);
     dialogRef.componentInstance.numberCreditCard = numberCreditCard;
     dialogRef.afterClosed().subscribe();
