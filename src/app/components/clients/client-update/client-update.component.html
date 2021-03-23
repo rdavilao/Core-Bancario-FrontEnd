@@ -39,27 +39,27 @@
             <div *ngIf="activateForms == 'address'">
                 <form #addressFormAdd="ngForm">
                     <p>
-                        <label for="type">Tipo</label>
+                        <label for="typeClientUpdate">Tipo</label>
                         <input type="text" name="type" #type="ngModel" [(ngModel)]="address.type">
                     </p>
                     <p>
-                        <label for="mainStreet">Calle principal</label>
+                        <label for="mainStreetClientUpdate">Calle principal</label>
                         <input type="text" name="mainStreet" #mainStreet="ngModel" [(ngModel)]="address.mainStreet">
                     </p>
                     <p>
-                        <label for="sideStreet">Calle secundaria</label>
+                        <label for="sideStreetClientUpdate">Calle secundaria</label>
                         <input type="text" name="sideStreet" #sideStreet="ngModel" [(ngModel)]="address.sideStreet">
                     </p>
                     <p>
-                        <label for="number">Número</label>
+                        <label for="numberClientUpdate">Número</label>
                         <input type="text" name="number" #number="ngModel" [(ngModel)]="address.number">
                     </p>
                     <p>
-                        <label for="reference">Referencia</label>
+                        <label for="referenceClientUpdate">Referencia</label>
                         <input type="text" name="reference" #reference="ngModel" [(ngModel)]="address.reference">
                     </p>
                     <p>
-                        <label for="province">Provincia</label>
+                        <label for="provinceClientUpdate">Provincia</label>
                         <select name="province" #province="ngModel" [(ngModel)]="address.province" (change)='loadCantones($event.target.value)'>
                                 <option *ngFor="let province of provinces" value="{{province.nombre}}">
                                     {{province.nombre}}
@@ -67,7 +67,7 @@
                             </select>
                     </p>
                     <p>
-                        <label for="canton">Cantón</label>
+                        <label for="cantonClientUpdate">Cantón</label>
                         <select name="canton" #canton="ngModel" [(ngModel)]="address.canton" (change)='loadParish($event.target.value)'>
                                 <option *ngFor="let canton of cantones" value="{{canton.nombre}}">
                                     {{canton.nombre}}
@@ -75,7 +75,7 @@
                             </select>
                     </p>
                     <p>
-                        <label for="parish">Parroquia</label>
+                        <label for="parishClientUpdate">Parroquia</label>
                         <select name="parish" #parish="ngModel" [(ngModel)]="address.parish">
                                 <option *ngFor="let parro of parishes" value="{{parro.nombre}}">
                                     {{parro.nombre}}

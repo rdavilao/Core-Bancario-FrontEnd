@@ -19,7 +19,8 @@
             <label for="identification">Documento de identificación</label>
             <input type="text" name="identification" #identification="ngModel" [(ngModel)]="client.identification" required>
             <input type="button" class="button" (click)="validator();" value="Validar" />
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img src={{img}} height="35px" alt="Check\Validator" />
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <img *ngIf="img != ''" src={{img}} height="35px" alt="Check\Validator" />
             <span class="form-error" *ngIf="identification.touched && !identification.valid">*Campo obligatorio</span>
         </p>
 
@@ -36,27 +37,27 @@
             </div>
             <form #addressForm="ngForm">
                 <p>
-                    <label for="type">Tipo</label>
+                    <label for="typeClient">Tipo</label>
                     <input type="text" name="type" #type="ngModel" [(ngModel)]="address.type" required>
                 </p>
                 <p>
-                    <label for="mainStreet">Calle principal</label>
+                    <label for="mainStreetClient">Calle principal</label>
                     <input type="text" name="mainStreet" #mainStreet="ngModel" [(ngModel)]="address.mainStreet" required>
                 </p>
                 <p>
-                    <label for="sideStreet">Calle secundaria</label>
+                    <label for="sideStreetClient">Calle secundaria</label>
                     <input type="text" name="sideStreet" #sideStreet="ngModel" [(ngModel)]="address.sideStreet" required>
                 </p>
                 <p>
-                    <label for="number">Número</label>
+                    <label for="numberClient">Número</label>
                     <input type="text" name="number" #number="ngModel" [(ngModel)]="address.number">
                 </p>
                 <p>
-                    <label for="reference">Referencia</label>
+                    <label for="referenceClient">Referencia</label>
                     <input type="text" name="reference" #reference="ngModel" [(ngModel)]="address.reference">
                 </p>
                 <p>
-                    <label for="province">Provincia</label>
+                    <label for="provinceClient">Provincia</label>
                     <select name="province" #province="ngModel" [(ngModel)]="address.province" (change)='loadCantones($event.target.value)'>
                     <option *ngFor="let province of provinces" value="{{province.nombre}}">
                         {{province.nombre}}
@@ -64,7 +65,7 @@
                 </select>
                 </p>
                 <p>
-                    <label for="canton">Cantón</label>
+                    <label for="cantonClient">Cantón</label>
                     <select name="canton" #canton="ngModel" [(ngModel)]="address.canton" (change)='loadParish($event.target.value)'>
                         <option *ngFor="let canton of cantones" value="{{canton.nombre}}">
                             {{canton.nombre}}
@@ -72,7 +73,7 @@
                     </select>
                 </p>
                 <p>
-                    <label for="parish">Parroquia</label>
+                    <label for="parishClient">Parroquia</label>
                     <select name="parish" #parish="ngModel" [(ngModel)]="address.parish">
                         <option *ngFor="let parro of parishes" value="{{parro.nombre}}">
                             {{parro.nombre}}

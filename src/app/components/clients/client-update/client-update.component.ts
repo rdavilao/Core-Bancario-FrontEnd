@@ -27,8 +27,8 @@ export class ClientUpdateComponent implements OnInit {
   public addresses: Address[];
   public phones: Phone[];
   public provinces: string[];
-  public cantones: string[];
-  public parishes: string[];
+  public cantonesClientUpdate: string[];
+  public parishesClientUpdate: string[];
   public provinceAux: string;
   public cantonAux: string;
   public parishAux: string;
@@ -50,8 +50,8 @@ export class ClientUpdateComponent implements OnInit {
     this.addresses = new Array<Address>();
     this.phones = new Array<Phone>();
     this.provinces = this.loadProvinces();
-    this.cantones = new Array<string>();
-    this.parishes = new Array<string>();
+    this.cantonesClientUpdate = new Array<string>();
+    this.parishesClientUpdate = new Array<string>();
   }
 
   ngOnInit(): void {
@@ -89,17 +89,16 @@ export class ClientUpdateComponent implements OnInit {
   }
 
   addAddress(form): void {
-    const address = new Address('', '', '', '', '', '', '', '');
-    address.type = form.form.value.type;
-    address.mainStreet = form.form.value.mainStreet;
-    address.sideStreet = form.form.value.sideStreet;
-    address.numberAddress = form.form.value.number;
-    address.reference = form.form.value.reference;
-    address.province = form.form.value.province;
-    address.canton = form.form.value.canton;
-    address.parish = form.form.value.parish;
-    this.client.addresses.push(address);
-    console.log(this.client);
+    const addressClientUpdate = new Address('', '', '', '', '', '', '', '');
+    addressClientUpdate.type = form.form.value.type;
+    addressClientUpdate.mainStreet = form.form.value.mainStreet;
+    addressClientUpdate.sideStreet = form.form.value.sideStreet;
+    addressClientUpdate.numberAddress = form.form.value.number;
+    addressClientUpdate.reference = form.form.value.reference;
+    addressClientUpdate.province = form.form.value.province;
+    addressClientUpdate.canton = form.form.value.canton;
+    addressClientUpdate.parish = form.form.value.parish;
+    this.client.addresses.push(addressClientUpdate);
     form.reset();
     this.statusAddress = 'success';
     setTimeout(() => {
@@ -181,36 +180,36 @@ export class ClientUpdateComponent implements OnInit {
   }
 
   loadProvinces(): any {
-    const provinces = new Array<string>();
+    const provincesClientUpdate = new Array<string>();
     this.clientService.getProvince().subscribe(
       response => {
         for (const item of response) {
-          provinces.push(item);
+          provincesClientUpdate.push(item);
         }
       }
     );
     this.loadCantones('PICHINCHA');
     this.loadParish('QUITO');
-    return provinces;
+    return provincesClientUpdate;
   }
 
   loadCantones(province): void {
-    this.cantones = new Array<string>();
+    this.cantonesClientUpdate = new Array<string>();
     this.clientService.getUbication(province, 'CANTON').subscribe(
       response => {
         for (const item of response) {
-          this.cantones.push(item);
+          this.cantonesClientUpdate.push(item);
         }
       }
     );
   }
 
   loadParish(canton): void {
-    this.parishes = new Array<string>();
+    this.parishesClientUpdate = new Array<string>();
     this.clientService.getUbication(canton, 'PARROQUIA').subscribe(
       response => {
         for (const item of response) {
-          this.parishes.push(item);
+          this.parishesClientUpdate.push(item);
         }
       }
     );
