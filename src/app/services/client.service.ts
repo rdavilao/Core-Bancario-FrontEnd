@@ -5,7 +5,7 @@ import { Client } from '../models/client/client';
 import { urlClient } from '../../environments/environment';
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
-const bbConsultas = 'http://bbconsultas.southcentralus.cloudapp.azure.com:';
+const bbConsultas = 'http://52.250.12.217:';
 
 @Injectable()
 export class ClientService {
@@ -38,7 +38,7 @@ export class ClientService {
     }
 
     validatorExistenceBB(identification: string): Observable<any> {
-        return this.http.get('http://18.209.218.56:8081/api/corebancario/client/findClientById/' + identification, { headers });
+        return this.http.get(urlClient + '/findClientById/' + identification, { headers });
     }
 
     getProvince(): Observable<any> {

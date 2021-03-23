@@ -9,10 +9,10 @@
             <label>Tipo de tarjeta</label>
             <select name="type" [(ngModel)]="type">
                 <option value="4" selected>VISA
-                    <img src="../../../../assets/visa.png" height="auto" />
+                    <img src="../../../../assets/visa.png" height="auto" alt="Visa" />
                 </option>
                 <option value="5">MASTERCARD
-                    <img src="../../../../assets/mastercard.png" height="auto" />
+                    <img src="../../../../assets/mastercard.png" height="auto" alt="MasterCard" />
                 </option>
             </select>
         </p>
@@ -26,7 +26,7 @@
     <li *ngFor="let creditCard of creditCards" class="creditCard">
         <mat-card class="card">
             <h2>
-                <img src={{img}} height="20px" />
+                <img src={{img}} height="20px" alt="LogoCreditCard" />
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {{creditCard.number}}
             </h2>
             <p>Cuenta Asociada: {{creditCard.account}}</p>

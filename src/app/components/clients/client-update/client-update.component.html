@@ -22,7 +22,7 @@
         <p class="spacer"></p>
 
         <div *ngIf="!isContributor">
-            <h3><b>Dirección Domiciliaria</b>
+            <h3><strong>Dirección Domiciliaria</strong>
                 <input type="button" class="buttonAdd" (click)="activateForm('address');" value="Agregar nueva dirección" />
             </h3>
             <div class="message success" *ngIf="statusAddress == 'success'">
@@ -86,7 +86,8 @@
                 </form>
             </div>
 
-            <table>
+            <table aria-describedby="Tabla de direcciones de usuarios.">
+                <th id="addresses"></th>
                 <tr>
                     <td *ngFor="let dir of client.addresses; index as i">
                         <form #addressForm="ngForm">
@@ -118,7 +119,8 @@
                             <input type="button" class="button" (click)="changeAddress(i)" value="Cambiar ubicación" />
 
                             <div>
-                                <table>
+                                <table aria-describedby="Tabla de opciones.">
+                                    <th id="update"></th>
                                     <tr>
                                         <td>
                                             <input type="button" class="button" (click)="updateAddress(addressForm, i)" value="Actualizar" /></td>
@@ -161,7 +163,7 @@
         </div>
 
         <p class="spacer"></p>
-        <h3><b>Números de contacto</b>
+        <h3><strong>Números de contacto</strong>
             <input type="button" class="buttonAdd" (click)="activateForm('phone')" value="Agregar nuevo contacto" />
         </h3>
 
@@ -190,23 +192,25 @@
             </form>
         </div>
 
-        <table>
+        <table aria-describedby="Tabla de teléfonos de clientes.">
+            <th id="addrephonessses"></th>
             <tr>
-                <td *ngFor="let phone of client.phones; index as i ">
-                    <form #phoneForm="ngForm">
-                        <p>
-                            <label for="type">Tipo</label>
-                            <input type="text " name="type" #type="ngModel" [(ngModel)]="phone.type" placeholder="phone.type">
-                        </p>
-                        <p>
-                            <label for="value">Número</label>
-                            <input type="text" name="value" #value="ngModel" [(ngModel)]="phone.value" placeholder="phone.value">
-                        </p>
-                        <input type="button" class="button" (click)="updatePhones(phoneForm, i); " value="Actualizar" />
-                        <input type="button" class="buttonDelete" (click)="deletePhone(i); " value="Eliminar " />
-                    </form>
-                </td>
-            </tr>
+                <tr>
+                    <td *ngFor="let phone of client.phones; index as i ">
+                        <form #phoneForm="ngForm">
+                            <p>
+                                <label for="type">Tipo</label>
+                                <input type="text " name="type" #type="ngModel" [(ngModel)]="phone.type" placeholder="phone.type">
+                            </p>
+                            <p>
+                                <label for="value">Número</label>
+                                <input type="text" name="value" #value="ngModel" [(ngModel)]="phone.value" placeholder="phone.value">
+                            </p>
+                            <input type="button" class="button" (click)="updatePhones(phoneForm, i); " value="Actualizar" />
+                            <input type="button" class="buttonDelete" (click)="deletePhone(i); " value="Eliminar " />
+                        </form>
+                    </td>
+                </tr>
         </table>
 
     </mat-dialog-content>

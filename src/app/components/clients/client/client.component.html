@@ -19,7 +19,7 @@
             <label for="identification">Documento de identificación</label>
             <input type="text" name="identification" #identification="ngModel" [(ngModel)]="client.identification" required>
             <input type="button" class="button" (click)="validator();" value="Validar" />
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img src={{img}} height="35px" />
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img src={{img}} height="35px" alt="Check\Validator" />
             <span class="form-error" *ngIf="identification.touched && !identification.valid">*Campo obligatorio</span>
         </p>
 
@@ -30,7 +30,7 @@
         <p class="spacer"></p>
 
         <div *ngIf="!isContributor">
-            <h3><b>Dirección Domiciliaria</b></h3>
+            <h3><strong>Dirección Domiciliaria</strong></h3>
             <div class="message success" *ngIf="statusAddress == 'success'">
                 Dirección agregada correctamente.
             </div>
@@ -66,25 +66,25 @@
                 <p>
                     <label for="canton">Cantón</label>
                     <select name="canton" #canton="ngModel" [(ngModel)]="address.canton" (change)='loadParish($event.target.value)'>
-                    <option *ngFor="let canton of cantones" value="{{canton.nombre}}">
-                        {{canton.nombre}}
-                    </option>
-                </select>
+                        <option *ngFor="let canton of cantones" value="{{canton.nombre}}">
+                            {{canton.nombre}}
+                        </option>
+                    </select>
                 </p>
                 <p>
                     <label for="parish">Parroquia</label>
                     <select name="parish" #parish="ngModel" [(ngModel)]="address.parish">
-                    <option *ngFor="let parro of parishes" value="{{parro.nombre}}">
-                        {{parro.nombre}}
-                    </option>
-                </select>
+                        <option *ngFor="let parro of parishes" value="{{parro.nombre}}">
+                            {{parro.nombre}}
+                        </option>
+                    </select>
                 </p>
                 <input type="button" class="button" (click)="addAddress(addressForm);" value="Agregar" [disabled]="!addressForm.form.valid" />
             </form>
         </div>
 
         <p class="spacer"></p>
-        <h3><b>Números de contacto</b></h3>
+        <h3><strong>Números de contacto</strong></h3>
         <div class="message success" *ngIf="statusPhone == 'success'">
             Teléfono agregado correctamente.
         </div>
