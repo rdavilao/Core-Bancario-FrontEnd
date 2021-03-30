@@ -27,14 +27,20 @@ export class ClientUpdateComponent implements OnInit {
   public addresses: Address[];
   public phones: Phone[];
   public provinces: string[];
-  public cantones: string[];
-  public parishes: string[];
+  public cantonesClientUpdate: string[];
+  public parishesClientUpdate: string[];
+  public provinceAux: string;
+  public cantonAux: string;
+  public parishAux: string;
+  public activateChangeAddress: string;
   public activateForms: string;
   public changePlace: string;
+  public iAux: number;
 
   constructor(
-    private _clientService: ClientService,
-    ) {
+    private clientService: ClientService,
+  ) {
+    this.activateChangeAddress = '';
     this.identification = '';
     this.activateForms = '';
     this.changePlace = '';
@@ -44,163 +50,168 @@ export class ClientUpdateComponent implements OnInit {
     this.addresses = new Array<Address>();
     this.phones = new Array<Phone>();
     this.provinces = this.loadProvinces();
-    this.cantones = new Array<string>();
-    this.parishes = new Array<string>();
+    this.cantonesClientUpdate = new Array<string>();
+    this.parishesClientUpdate = new Array<string>();
   }
 
   ngOnInit(): void {
-    this._clientService.getClientById(this.identification).subscribe(
+    this.clientService.getClientById(this.identification).subscribe(
       response => {
         this.client = response;
         this.addresses = this.client.addresses;
         this.phones = this.client.phones;
       }
-    )
+    );
   }
 
-  onSubmit(form) { 
-  }
-
-  confirmUpdate() {
-    this._clientService.updateClient(this.client).subscribe(
-      response =>{
+  confirmUpdate(): void {
+    this.clientService.updateClient(this.client).subscribe(
+      response => {
         this.status = 'success';
       }
-    )
+    );
   }
 
-  activateForm(option){
-    if(this.activateForms == ''){
+  activateForm(option): void {
+    if (this.activateForms === '') {
       this.activateForms = option;
-    }else{
+    } else {
       this.activateForms = '';
-    }      
+    }
   }
 
-  activateChangePlace(){
-    if(this.changePlace == ''){
+  activateChangePlace(): void {
+    if (this.changePlace === '') {
       this.changePlace = 'change';
-    }else{
+    } else {
       this.changePlace = '';
     }
   }
 
-  addAddress(form) {
-    var address = new Address('', '', '', '', '', '', '', '');
-    address.type = form.form.value.type;
-    address.mainStreet = form.form.value.mainStreet;
-    address.sideStreet = form.form.value.sideStreet;
-    address.number = form.form.value.number;
-    address.reference = form.form.value.reference;
-    address.province = form.form.value.province;
-    address.canton = form.form.value.canton;
-    address.parish = form.form.value.parish;
-    this.client.addresses.push(address);
-    console.log(this.client);
+  addAddress(form): void {
+    const addressClientUpdate = new Address('', '', '', '', '', '', '', '');
+    addressClientUpdate.type = form.form.value.type;
+    addressClientUpdate.mainStreet = form.form.value.mainStreet;
+    addressClientUpdate.sideStreet = form.form.value.sideStreet;
+    addressClientUpdate.numberAddress = form.form.value.number;
+    addressClientUpdate.reference = form.form.value.reference;
+    addressClientUpdate.province = form.form.value.province;
+    addressClientUpdate.canton = form.form.value.canton;
+    addressClientUpdate.parish = form.form.value.parish;
+    this.client.addresses.push(addressClientUpdate);
     form.reset();
     this.statusAddress = 'success';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusAddress = '';
       this.activateForms = '';
-    },1000);
+    }, 1000);
   }
 
-  addPhones(form) {
-    var phone = new Phone('', '');
+  addPhones(form): void {
+    const phone = new Phone('', '');
     phone.type = form.form.value.type;
     phone.value = form.form.value.value;
     this.client.phones.push(phone);
     form.reset();
     this.statusPhone = 'success';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusPhone = '';
       this.activateForms = '';
-    },1000);
+    }, 1000);
   }
 
-  updateAddress(form, index) {
+  updateAddress(form, index: number): void {
     this.addresses[index].type = form.form.value.type;
     this.addresses[index].mainStreet = form.form.value.mainStreet;
     this.addresses[index].sideStreet = form.form.value.sideStreet;
-    this.addresses[index].number = form.form.value.number;
+    this.addresses[index].numberAddress = form.form.value.number;
     this.addresses[index].reference = form.form.value.reference;
-    this.addresses[index].province = form.form.value.province;
-    this.addresses[index].canton = form.form.value.canton;
-    this.addresses[index].parish = form.form.value.parish;
     this.client.addresses = this.addresses;
-    console.log(this.addresses);
     this.statusAddress = 'successUpdate';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusAddress = '';
-    },1000);
+    }, 1000);
   }
 
-  updatePhones(form, index) {
+  updatePhones(form, index: number): void {
     this.phones[index].type = form.form.value.type;
     this.phones[index].value = form.form.value.value;
     this.client.phones = this.phones;
     this.statusPhone = 'successUpdate';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusPhone = '';
-    },1000);
+    }, 1000);
   }
 
-  deleteAddress(index) {
-    if(this.client.addresses.length > 1){
-      this.client.addresses.splice(index,1);
-    }else{
+  deleteAddress(index: number): void {
+    if (this.client.addresses.length > 1) {
+      this.client.addresses.splice(index, 1);
+    } else {
       this.statusAddress = 'failedDelete';
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusAddress = '';
-    },2000);
+    }, 2000);
   }
 
-  deletePhone(index) {
-    if(this.client.phones.length > 1){
-      this.client.phones.splice(index,1);
-    }else{
+  deletePhone(index: number): void {
+    if (this.client.phones.length > 1) {
+      this.client.phones.splice(index, 1);
+    } else {
       this.statusPhone = 'failedDelete';
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       this.statusPhone = '';
-    },1000);
+    }, 1000);
   }
 
-  loadProvinces() {
-    var provinces = new Array<string>();
-    this._clientService.getProvince().subscribe(
+  changeAddress(i: number): void {
+    this.activateChangeAddress = 'activate';
+    this.iAux = i;
+  }
+
+  confirmChangeAddress(): void {
+    this.activateChangeAddress = '';
+    this.client.addresses[this.iAux].province = this.provinceAux;
+    this.client.addresses[this.iAux].canton = this.cantonAux;
+    this.client.addresses[this.iAux].parish = this.parishAux;
+    this.iAux = null;
+
+  }
+
+  loadProvinces(): any {
+    const provincesClientUpdate = new Array<string>();
+    this.clientService.getProvince().subscribe(
       response => {
-        for (var item of response) {
-          provinces.push(item);
+        for (const item of response) {
+          provincesClientUpdate.push(item);
         }
       }
     );
-    this.loadCantones("PICHINCHA");
-    this.loadParish("QUITO");
-    return provinces;
+    this.loadCantones('PICHINCHA');
+    this.loadParish('QUITO');
+    return provincesClientUpdate;
   }
 
-  loadCantones(province) {
-    this.cantones = new Array<string>();
-    this._clientService.getUbication(province, 'CANTON').subscribe(
+  loadCantones(province): void {
+    this.cantonesClientUpdate = new Array<string>();
+    this.clientService.getUbication(province, 'CANTON').subscribe(
       response => {
-        for (var item of response) {
-          this.cantones.push(item);
+        for (const item of response) {
+          this.cantonesClientUpdate.push(item);
         }
       }
     );
   }
 
-  loadParish(canton) {
-    this.parishes = new Array<string>();
-    this._clientService.getUbication(canton, 'PARROQUIA').subscribe(
+  loadParish(canton): void {
+    this.parishesClientUpdate = new Array<string>();
+    this.clientService.getUbication(canton, 'PARROQUIA').subscribe(
       response => {
-        for (var item of response) {
-          this.parishes.push(item);
+        for (const item of response) {
+          this.parishesClientUpdate.push(item);
         }
       }
     );
   }
-
 }

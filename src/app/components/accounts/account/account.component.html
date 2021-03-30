@@ -8,7 +8,7 @@
     <div class="message failed" *ngIf="showA == 'failed'">
         A ocurrido un error en la creación de la cuenta.
     </div>
-    <form #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)">
+    <form #accountForm="ngForm" (ngSubmit)="onSubmit()">
 
         <p>
             <label>Tipo de cuenta:</label>
@@ -19,7 +19,7 @@
             </select>
         </p>
         <p>
-            <label for="CLIENT_IDENTIFICATION">Documento de Identificacion</label>
+            <label for="CLIENT_IDENTIFICATION">Documento de identificación</label>
             <input type="text" name="CLIENT_IDENTIFICATION" #CLIENT_IDENTIFICATION="ngModel" [(ngModel)]="account.CLIENT_IDENTIFICATION" required>
         </p>
 

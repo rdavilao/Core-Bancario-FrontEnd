@@ -6,7 +6,7 @@
     <h2 mat-dialog-title>Actualización de datos del cliente</h2>
     <mat-dialog-content class="mat-typography">
         <p>
-            <label for="identification">Documento de Identificacion: {{client.identification}}</label>
+            <label for="identification">Documento de identificación: {{client.identification}}</label>
         </p>
         <p>
             <label for="names" *ngIf="!isContributor">Nombres: {{client.names}}</label>
@@ -22,7 +22,7 @@
         <p class="spacer"></p>
 
         <div *ngIf="!isContributor">
-            <h3><b>Dirección Domiciliaria</b>
+            <h3><strong>Dirección Domiciliaria</strong>
                 <input type="button" class="buttonAdd" (click)="activateForm('address');" value="Agregar nueva dirección" />
             </h3>
             <div class="message success" *ngIf="statusAddress == 'success'">
@@ -39,27 +39,27 @@
             <div *ngIf="activateForms == 'address'">
                 <form #addressFormAdd="ngForm">
                     <p>
-                        <label for="type">Tipo</label>
+                        <label for="typeClientUpdate">Tipo</label>
                         <input type="text" name="type" #type="ngModel" [(ngModel)]="address.type">
                     </p>
                     <p>
-                        <label for="mainStreet">Calle principal</label>
+                        <label for="mainStreetClientUpdate">Calle principal</label>
                         <input type="text" name="mainStreet" #mainStreet="ngModel" [(ngModel)]="address.mainStreet">
                     </p>
                     <p>
-                        <label for="sideStreet">Calle secundaria</label>
+                        <label for="sideStreetClientUpdate">Calle secundaria</label>
                         <input type="text" name="sideStreet" #sideStreet="ngModel" [(ngModel)]="address.sideStreet">
                     </p>
                     <p>
-                        <label for="number">Número</label>
+                        <label for="numberClientUpdate">Número</label>
                         <input type="text" name="number" #number="ngModel" [(ngModel)]="address.number">
                     </p>
                     <p>
-                        <label for="reference">Referencia</label>
+                        <label for="referenceClientUpdate">Referencia</label>
                         <input type="text" name="reference" #reference="ngModel" [(ngModel)]="address.reference">
                     </p>
                     <p>
-                        <label for="province">Provincia</label>
+                        <label for="provinceClientUpdate">Provincia</label>
                         <select name="province" #province="ngModel" [(ngModel)]="address.province" (change)='loadCantones($event.target.value)'>
                                 <option *ngFor="let province of provinces" value="{{province.nombre}}">
                                     {{province.nombre}}
@@ -67,7 +67,7 @@
                             </select>
                     </p>
                     <p>
-                        <label for="canton">Canton</label>
+                        <label for="cantonClientUpdate">Cantón</label>
                         <select name="canton" #canton="ngModel" [(ngModel)]="address.canton" (change)='loadParish($event.target.value)'>
                                 <option *ngFor="let canton of cantones" value="{{canton.nombre}}">
                                     {{canton.nombre}}
@@ -75,7 +75,7 @@
                             </select>
                     </p>
                     <p>
-                        <label for="parish">Parroquia</label>
+                        <label for="parishClientUpdate">Parroquia</label>
                         <select name="parish" #parish="ngModel" [(ngModel)]="address.parish">
                                 <option *ngFor="let parro of parishes" value="{{parro.nombre}}">
                                     {{parro.nombre}}
@@ -86,7 +86,8 @@
                 </form>
             </div>
 
-            <table>
+            <table aria-describedby="Tabla de direcciones de usuarios.">
+                <th id="addresses"></th>
                 <tr>
                     <td *ngFor="let dir of client.addresses; index as i">
                         <form #addressForm="ngForm">
@@ -111,31 +112,15 @@
                                 <input type="text" name="reference" #reference="ngModel" [(ngModel)]="dir.reference">
                             </p>
                             <p>
-                                <label for="province">Provincia</label>
-                                <select name="province" #province="ngModel" [(ngModel)]="dir.province" (change)='loadCantones($event.target.value);'>
-                                        <option *ngFor="let province of provinces" [value]="province.nombre">
-                                            {{province.nombre}}
-                                        </option>
-                                    </select>
+                                <label for="reference">Provincia: {{dir.province}}</label>
+                                <label for="reference">Cantón: {{dir.canton}}</label>
+                                <label for="reference">Parroquia: {{dir.parish}}</label>
                             </p>
-                            <p>
-                                <label for="canton">Canton</label>
-                                <select name="canton" #canton="ngModel" [(ngModel)]="dir.canton" (change)='loadParish($event.target.value);'>
-                                        <option *ngFor="let canton of cantones" [value]="canton.nombre">
-                                            {{canton.nombre}}
-                                        </option>
-                                    </select>
-                            </p>
-                            <p>
-                                <label for="parish">Parroquia</label>
-                                <select name="parish" #parish="ngModel" [(ngModel)]="dir.parish">
-                                        <option *ngFor="let parro of parishes" [value]="parro.nombre">
-                                            {{parro.nombre}}
-                                        </option>
-                                    </select>
-                            </p>
+                            <input type="button" class="button" (click)="changeAddress(i)" value="Cambiar ubicación" />
+
                             <div>
-                                <table>
+                                <table aria-describedby="Tabla de opciones.">
+                                    <th id="update"></th>
                                     <tr>
                                         <td>
                                             <input type="button" class="button" (click)="updateAddress(addressForm, i)" value="Actualizar" /></td>
@@ -148,10 +133,37 @@
                     </td>
                 </tr>
             </table>
+            <div *ngIf="activateChangeAddress != ''">
+                <p>
+                    <label for="province">Provincia</label>
+                    <select name="province" [(ngModel)]="provinceAux" (change)='loadCantones($event.target.value);'>
+                            <option *ngFor="let province of provinces">
+                                {{province.nombre}}
+                            </option>
+                        </select>
+                </p>
+                <p>
+                    <label for="canton">Cantón</label>
+                    <select name="canton" [(ngModel)]="cantonAux" (change)='loadParish($event.target.value);'>
+                            <option *ngFor="let canton of cantones">
+                                {{canton.nombre}}
+                            </option>
+                        </select>
+                </p>
+                <p>
+                    <label for="parish">Parroquia</label>
+                    <select name="parish" [(ngModel)]="parishAux">
+                            <option *ngFor="let parro of parishes">
+                                {{parro.nombre}}
+                            </option>
+                        </select>
+                </p>
+                <input type="button" class="button" (click)="confirmChangeAddress()" value="Aceptar" />
+            </div>
         </div>
 
         <p class="spacer"></p>
-        <h3><b>Números de contacto</b>
+        <h3><strong>Números de contacto</strong>
             <input type="button" class="buttonAdd" (click)="activateForm('phone')" value="Agregar nuevo contacto" />
         </h3>
 
@@ -180,23 +192,25 @@
             </form>
         </div>
 
-        <table>
+        <table aria-describedby="Tabla de teléfonos de clientes.">
+            <th id="addrephonessses"></th>
             <tr>
-                <td *ngFor="let phone of client.phones; index as i ">
-                    <form #phoneForm="ngForm">
-                        <p>
-                            <label for="type">Tipo</label>
-                            <input type="text " name="type" #type="ngModel" [(ngModel)]="phone.type" placeholder="phone.type">
-                        </p>
-                        <p>
-                            <label for="value">Número</label>
-                            <input type="text" name="value" #value="ngModel" [(ngModel)]="phone.value" placeholder="phone.value">
-                        </p>
-                        <input type="button" class="button" (click)="updatePhones(phoneForm, i); " value="Actualizar" />
-                        <input type="button" class="buttonDelete" (click)="deletePhone(i); " value="Eliminar " />
-                    </form>
-                </td>
-            </tr>
+                <tr>
+                    <td *ngFor="let phone of client.phones; index as i ">
+                        <form #phoneForm="ngForm">
+                            <p>
+                                <label for="type">Tipo</label>
+                                <input type="text " name="type" #type="ngModel" [(ngModel)]="phone.type" placeholder="phone.type">
+                            </p>
+                            <p>
+                                <label for="value">Número</label>
+                                <input type="text" name="value" #value="ngModel" [(ngModel)]="phone.value" placeholder="phone.value">
+                            </p>
+                            <input type="button" class="button" (click)="updatePhones(phoneForm, i); " value="Actualizar" />
+                            <input type="button" class="buttonDelete" (click)="deletePhone(i); " value="Eliminar " />
+                        </form>
+                    </td>
+                </tr>
         </table>
 
     </mat-dialog-content>

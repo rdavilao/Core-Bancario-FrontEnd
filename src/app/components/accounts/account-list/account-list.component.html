@@ -1,8 +1,8 @@
 <div class="container">
     <h2>{{title}}</h2>
-    <form #accountListForm="ngForm" (ngSubmit)="onSubmit(accountListForm)">
+    <form #accountListForm="ngForm" (ngSubmit)="onSubmit()">
         <p>
-            <label for="identification">Documento de Identificacion</label>
+            <label for="identification">Documento de identificación</label>
             <input type="text" name="identification" [(ngModel)]="identification" required>
         </p>
         <input type="submit" value="Buscar" [disabled]="!accountListForm.form.valid">
@@ -13,15 +13,15 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Ejem: 1804915617" #input>
 </mat-form-field>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+<table mat-table [dataSource]="dataSourceAccount" class="mat-elevation-z8" matSort aria-describedby="Tabla de cuentas por cliente.">
 
     <ng-container matColumnDef="number">
-        <th mat-header-cell *matHeaderCellDef> Número de cuenta </th>
+        <th mat-header-cell *matHeaderCellDef id="numberAccount"> Número de cuenta </th>
         <td mat-cell *matCellDef="let element"> {{element.number}} </td>
     </ng-container>
 
     <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="type"> Tipo </th>
         <td mat-cell *matCellDef="let element">
             <div *ngIf="element.type == 1">Ahorro</div>
             <div *ngIf="element.type == 2">Ahorro programado</div>
@@ -32,17 +32,17 @@
     </ng-container>
 
     <ng-container matColumnDef="creationDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de creación </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="creationDate"> Fecha de creación </th>
         <td mat-cell *matCellDef="let element"> {{element.creationDate | date : "medium"}} </td>
     </ng-container>
 
     <ng-container matColumnDef="balance">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Saldo actual </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="balance"> Saldo actual </th>
         <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="status"> Estado </th>
         <td mat-cell *matCellDef="let element">
             <div *ngIf="element.status == 'ACT'">Activo</div>
             <div *ngIf="element.status == 'INA'">Inactivo</div>
@@ -51,19 +51,20 @@
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Opciones </th>
+    <ng-container matColumnDef="actionsAccount">
+        <th mat-header-cell *matHeaderCellDef id="actionsAccount"> Opciones </th>
         <td mat-cell *matCellDef="let element">
             <div *ngIf="element.status != 'INA'">
-                <button mat-button (click)="openDialog(element.number)">Desactivar</button>
+                <button mat-button (click)="openDialogAccount(element.number)">Desactivar</button>
             </div>
         </td>
     </ng-container>
 
+    <th id="displayAccount"></th>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-    <!-- Row shown when there is no matching data. -->
+    <th id="cellAccount"></th>
     <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="8"></td>
     </tr>

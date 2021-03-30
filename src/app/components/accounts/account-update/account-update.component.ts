@@ -1,27 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-account-update',
   templateUrl: './account-update.component.html',
-  styleUrls: ['./account-update.component.css'],
   providers: [AccountService]
 })
-export class AccountUpdateComponent implements OnInit {
+export class AccountUpdateComponent {
 
-  public number: string;
+  public account: string;
 
   constructor(
-    private _accountService: AccountService
+    private accountService: AccountService
   ) {
-    this.number = "";
+    this.account = '';
    }
 
-  ngOnInit(): void {
-  }
-
-  confirm(){    
-    this._accountService.updateStateAccount(this.number).subscribe();
+  confirm(): void {
+    this.accountService.updateStateAccount(this.account).subscribe();
   }
 
 }

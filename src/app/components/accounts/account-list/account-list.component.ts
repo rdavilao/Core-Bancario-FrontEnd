@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { AccountService } from '../../../services/account.service';
 import { AccountUpdateComponent } from '../account-update/account-update.component';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,54 +12,49 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./account-list.component.css'],
   providers: [AccountService]
 })
-export class AccountListComponent implements OnInit, AfterViewInit {
+export class AccountListComponent implements AfterViewInit {
 
   public identification: string;
   public title: string;
-  displayedColumns: string[] = ['number', 'type', 'creationDate', 'balance', 'status', 'actions'];
-  dataSource = new MatTableDataSource();
-  @ViewChild(MatSort, {static:true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  displayedColumns: string[] = ['number', 'type', 'creationDate', 'balance', 'status', 'actionsAccount'];
+  dataSourceAccount = new MatTableDataSource();
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private _accountService: AccountService,  
-    public dialog: MatDialog  
-    ) { 
-      this.title = "Listado de cuentas";
-      this.identification = "";
-    }
-
-  ngOnInit(): void {
+    private accountService: AccountService,
+    public dialog: MatDialog
+  ) {
+    this.title = 'Listado de cuentas';
+    this.identification = '';
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngAfterViewInit(): void {
+    this.dataSourceAccount.paginator = this.paginator;
+    this.dataSourceAccount.sort = this.sort;
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): any {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.dataSource.filterPredicate = (data: any, filter) => {
-      const dataStr =JSON.stringify(data).toLowerCase();
-      return dataStr.indexOf(filter) != -1; 
-    }
+    this.dataSourceAccount.filter = filterValue.trim().toLowerCase();
+    this.dataSourceAccount.filterPredicate = (data: any, filter) => {
+      const dataStr = JSON.stringify(data).toLowerCase();
+      return dataStr.indexOf(filter) !== -1;
+    };
   }
 
-  onSubmit(form){
-    this._accountService.getAccountsByIdentification(this.identification).subscribe(
+  onSubmit(): void {
+    this.accountService.getAccountsByIdentification(this.identification).subscribe(
       response => {
-        this.dataSource.data = response;
+        this.dataSourceAccount.data = response;
       }
     );
   }
-  
-  openDialog(number) {
+
+  openDialogAccount(account: string): void {
     const dialogRef = this.dialog.open(AccountUpdateComponent);
-    dialogRef.componentInstance.number = number;
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.componentInstance.account = account;
+    dialogRef.afterClosed().subscribe();
   }
 
 }

@@ -4,7 +4,7 @@ import { Contributor } from './contributor';
 
 export class Client{
     constructor(
-        public _id: string,
+        public id: string,
         public identification: string,
         public names: string,
         public surnames: string,

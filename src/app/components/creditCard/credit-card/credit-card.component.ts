@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CreditCard } from '../../../models/creditCard';
-import { CreditCardRQ } from '../../../models/creditCard';
+import { Component } from '@angular/core';
+import { CreditCard, CreditCardRQ } from '../../../models/creditCard';
 import { CreditCardService } from '../../../services/creditCard.service';
 import { Account } from '../../../models/account';
 import { AccountService } from '../../../services/account.service';
@@ -11,7 +10,7 @@ import { AccountService } from '../../../services/account.service';
   styleUrls: ['./credit-card.component.css'],
   providers: [AccountService, CreditCardService]
 })
-export class CreditCardComponent implements OnInit {
+export class CreditCardComponent {
 
   public title: string;
   public creditCardAditional: string;
@@ -25,72 +24,68 @@ export class CreditCardComponent implements OnInit {
   public numberAccount: string;
 
   constructor(
-    private _accountService: AccountService,
-    private _creditCardService: CreditCardService
+    private accountService: AccountService,
+    private creditCardService: CreditCardService
   ) {
-    this.title = "Creación de tarjetas de crédito";
-    this.account = new Account(null,0,'',null,null,0,'');
-    this.creditCard = new CreditCard(null,0,'',0,'',null,null,'');
-    this.creditCardRQ = new CreditCardRQ(null,'',0,null,0);
+    this.title = 'Creación de tarjetas de crédito';
+    this.account = new Account(null, 0, '', null, null, 0, '');
+    this.creditCard = new CreditCard(null, 0, '', 0, '', null, null, '');
+    this.creditCardRQ = new CreditCardRQ(null, '', 0, null, 0);
     this.creditCards = new Array<CreditCardRQ>();
   }
 
-  ngOnInit(): void {
-  }
-
-  getCreditCards() {
-    this._creditCardService.getCreditCardsByIdentificationAndType(this.identification, parseInt(this.type)).subscribe(
+  getCreditCards(): void {
+    this.creditCardService.getCreditCardsByIdentificationAndType(this.identification, parseInt(this.type, 10)).subscribe(
       response => {
         this.creditCards = response;
         console.log(this.creditCards);
-        for(let creditCard of this.creditCards){
-          this._accountService.getAccountByNumber(creditCard.account).subscribe(
+        for (const creditCard of this.creditCards) {
+          this.accountService.getAccountByNumber(creditCard.account).subscribe(
             res => {
               creditCard.account = res.codigo;
             }
-          )
+          );
         }
       }
-    )
+    );
   }
 
-  onSubmit(form){
-    if(this.creditCardAditional == 'no'){
-      this.account.TYPE = parseInt(this.type);
+  onSubmit(): void {
+    if (this.creditCardAditional === 'no') {
+      this.account.TYPE = parseInt(this.type, 10);
       this.account.CLIENT_IDENTIFICATION = this.identification;
-      this._accountService.saveAccount(this.account).subscribe(
+      this.accountService.saveAccount(this.account).subscribe(
         response => {
-          this._accountService.getLastAccountByIdentification(this.identification).subscribe(
+          this.accountService.getLastAccountByIdentification(this.identification).subscribe(
             res => {
-              this._creditCardService.saveCreditCard(parseInt(res.codigo), 200).subscribe(
+              this.creditCardService.saveCreditCard(parseInt(res.codigo, 10), 200).subscribe(
                 respon => {
                   this.showA = 'success';
                   setTimeout(() => {
                     this.showA = '';
-                  },1500);
+                  }, 1500);
                 }, error => {
                   this.showA = 'failed';
                 }
               );
             }
-          )
+          );
         },
         error => {
           this.showA = 'failed';
         }
       );
-    }else{
-      this._creditCardService.saveCreditCard(parseInt(this.numberAccount), 200).subscribe(
-        respon => {
+    } else {
+      this.creditCardService.saveCreditCard(parseInt(this.numberAccount, 10), 200).subscribe(
+        response => {
           this.showA = 'success';
           setTimeout(() => {
             this.showA = '';
-          },1500);
+          }, 1500);
         }, error => {
           this.showA = 'failed';
         }
       );
     }
   }
-
 }

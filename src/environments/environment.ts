@@ -1,24 +1,11 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: false
 };
 
-export const urlTransaction = "http://18.209.218.56:8080/api/corebancario/transaction";
+export const urlTransaction = 'http://34.193.109.78:8080/api/corebancario/transaction';
 
-export const urlAccount = "http://18.209.218.56:8082/api/corebancario/account";
+export const urlAccount = 'http://34.193.109.78:8082/api/corebancario/account';
 
-export const urlCreditCard = "http://18.209.218.56:8082/api/corebancario/creditCard";
+export const urlCreditCard = 'http://34.193.109.78:8082/api/corebancario/creditCard';
 
-export const urlClient = "http://18.209.218.56:8081/api/corebancario/client";
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+export const urlClient = 'http://34.193.109.78:8081/api/corebancario/client';

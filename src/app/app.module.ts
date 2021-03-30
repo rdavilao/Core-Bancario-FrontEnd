@@ -12,9 +12,8 @@ import { ClientListComponent } from './components/clients/client-list/client-lis
 import { AccountComponent } from './components/accounts/account/account.component';
 import { TransactionComponent } from './components/transactions/transaction/transaction.component';
 import { TransactionListComponent } from './components/transactions/transaction-list/transaction-list.component';
-import { ErrorComponent } from './components/error/error.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
-import {SharedStyleModule } from './shared/shared-style/shared-style.module';
+import { SharedStyleModule } from './shared/shared-style/shared-style.module';
 import { CreditCardPaymentComponent } from './components/creditCardPayment/credit-card/credit-card.component';
 import { CreditCardPaymentListComponent } from './components/creditCardPayment/credit-card-list/credit-card-list.component';
 import { AccountUpdateComponent } from './components/accounts/account-update/account-update.component';
@@ -34,7 +33,6 @@ import { CreditCardListComponent } from './components/creditCard/credit-card-lis
     TransactionComponent,
     TransactionListComponent,
     NavigationComponent,
-    ErrorComponent,
     CreditCardPaymentComponent,
     CreditCardPaymentListComponent,
     AccountUpdateComponent,

@@ -4,39 +4,35 @@ import { Observable } from 'rxjs/Observable';
 import { Account } from '../models/account';
 import { urlAccount } from '../../environments/environment';
 
-const headers = new HttpHeaders().set('Content-Type','application/json');
+const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 @Injectable()
 export class AccountService {
 
     constructor(
-        private _http: HttpClient
+        private http: HttpClient
     ) {
     }
 
-    testService() {
-        return "Probando el servicio de tarjetas de credito"
+    saveAccount(account: Account): Observable<any> {
+        const body = '{"clientIdentification":"' + account.CLIENT_IDENTIFICATION + '" ,"type":' + account.TYPE + '}';
+        return this.http.post(urlAccount + '/create', body, { headers });
     }
 
-    saveAccount(account: Account): Observable<any>{
-        let body = '{"clientIdentification":"'+account.CLIENT_IDENTIFICATION+'" ,"type":'+account.TYPE+'}';
-        return this._http.post(urlAccount+'/create', body, {headers: headers});
+    getAccountsByIdentification(identification: string): Observable<any> {
+        return this.http.get(urlAccount + '/listAccount/' + identification, { headers });
     }
 
-    getAccountsByIdentification(identification: string): Observable<any>{
-        return this._http.get(urlAccount+'/listAccount/'+identification,{headers: headers});
+    getAccountByNumber(numberAccount: string): Observable<any> {
+        return this.http.get(urlAccount + '/findAccountByNumber/' + numberAccount, { headers });
     }
 
-    getAccountByNumber(number: string): Observable<any>{
-        return this._http.get(urlAccount+'/findAccountByNumber/'+number,{headers: headers});
+    getLastAccountByIdentification(identification: string): Observable<any> {
+        return this.http.get(urlAccount + '/findLastAccount/' + identification, { headers });
     }
 
-    getLastAccountByIdentification(identification: string): Observable<any>{
-        return this._http.get(urlAccount+'/findLastAccount/'+identification,{headers: headers});
-    }
-
-    updateStateAccount(number: string): Observable<any>{
-        let body = '{"number":"'+number+'" ,"state":"INA"}';
-        return this._http.put(urlAccount+'/updateStatus', body, {headers: headers});
+    updateStateAccount(numberAccount: string): Observable<any> {
+        const body = '{"number":"' + numberAccount + '" ,"state":"INA"}';
+        return this.http.put(urlAccount + '/updateStatus', body, { headers });
     }
 }

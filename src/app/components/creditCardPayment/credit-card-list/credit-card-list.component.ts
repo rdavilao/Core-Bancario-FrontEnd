@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CreditCardRQ } from '../../../models/creditCard';
-import { Account } from '../../../models/account';
 import { CreditCardService } from '../../../services/creditCard.service';
-import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-credit-card-list',
@@ -10,7 +8,7 @@ import { AccountService } from '../../../services/account.service';
   styleUrls: ['./credit-card-list.component.css'],
   providers: [CreditCardService]
 })
-export class CreditCardPaymentListComponent implements OnInit {
+export class CreditCardPaymentListComponent {
 
   public title: string;
   public identification: string;
@@ -19,30 +17,27 @@ export class CreditCardPaymentListComponent implements OnInit {
   public creditCards: CreditCardRQ[];
 
   constructor(
-    private _creditCardService: CreditCardService,
+    private creditCardService: CreditCardService,
   ) {
     this.type = 4;
-    this.title = "Lista de tarjetas de crédito";
+    this.title = 'Lista de tarjetas de crédito';
   }
 
-  ngOnInit(): void {
-  }
-
-  getCreditCard(form) {
-    if(this.type == 4){
-      this.img = "../../../../assets/visa.png";
-    }else{
-      this.img = "../../../../assets/mastercard.png";
+  getCreditCard(): void {
+    if (this.type === 4) {
+      this.img = '../../../../assets/visa.png';
+    } else {
+      this.img = '../../../../assets/mastercard.png';
     }
-    this._creditCardService.getCreditCardsByIdentificationAndType(this.identification,this.type).subscribe(
+    this.creditCardService.getCreditCardsByIdentificationAndType(this.identification, this.type).subscribe(
       response => {
-        if(response){
+        if (response) {
           this.creditCards = response;
         }
       },
       error => {
         this.creditCards = [];
-        console.log(<any>error);
+        console.log(error);
       }
     );
   }
