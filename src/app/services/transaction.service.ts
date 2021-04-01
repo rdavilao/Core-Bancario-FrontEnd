@@ -26,12 +26,12 @@ export class TransactionService {
 
     getTransactions(identification: string, limit: number): Observable<any> {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.get(urlTransaction + '/listXLastTransactions?identification=' + identification + '&limit=' + limit, { headers });
+        return this.http.get(urlTransaction + '/listXLastTransactions?account=' + identification + '&limit=' + limit, { headers });
     }
 
     getTransactionsByType(identification: string, limit: number, type: string): Observable<any> {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.get(urlTransaction + '/listXLastTransactionsByType?identification=' +
+        return this.http.get(urlTransaction + '/listXLastTransactionsByType?account=' +
         identification + '&limit=' + limit + '&type=' + type, { headers });
     }
 }
