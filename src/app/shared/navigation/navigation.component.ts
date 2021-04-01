@@ -19,7 +19,7 @@ export class NavigationComponent {
 
   constructor(private breakpointObserver: BreakpointObserver, private consultasLogin: ConsultasLoginService) {
     consultasLogin.login().subscribe((res) =>
-      localStorage.setItem('token', res.token)
+      localStorage.setItem('tokenConsultas', res.token)
     );
   }
 }

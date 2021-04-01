@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Client } from '../models/client/client';
 import { urlClient } from '../../environments/environment';
 
-const headersConsultas = new HttpHeaders().set('Authorization', localStorage.getItem('token'));
+const headersConsultas = new HttpHeaders().set('Authorization', localStorage.getItem('tokenConsultas'));
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
 const bbConsultas = 'http://52.250.12.217:';
 
