@@ -2,17 +2,6 @@
     <h2>{{title}}</h2>
     <form #transactionListForm="ngForm" (ngSubmit)="getTransactions()">
         <p>
-            <label for="identification" *ngIf="type!='Pago'">Documento de identificación</label>
-            <label for="identification" *ngIf="type=='Pago'">Pago identificador</label>
-            <input type="text" name="identification" [(ngModel)]="identification" required>
-        </p>
-
-        <p>
-            <label for="limit">Número de transacciones</label>
-            <input type="number" name="limit" [(ngModel)]="limit">
-        </p>
-
-        <p>
             <label>Tipo de transacción</label>
             <select name="type" [(ngModel)]="type">
                 <option value="all" selected>Todas</option>
@@ -20,6 +9,16 @@
                 <option value="Retiro">Retiro</option>
                 <option value="Pago">Pago de servicios</option>
             </select>
+        </p>
+        <p>
+            <label for="identification" *ngIf="type!='Pago'">Número de cuenta</label>
+            <label for="identification" *ngIf="type=='Pago'">Número de medidor</label>
+            <input type="text" name="identification" [(ngModel)]="identification" required>
+        </p>
+
+        <p>
+            <label for="limit">Número de transacciones</label>
+            <input type="number" name="limit" [(ngModel)]="limit">
         </p>
 
         <input type="submit" value="Consultar">

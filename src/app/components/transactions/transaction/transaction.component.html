@@ -22,19 +22,16 @@
             <label>Tipo de pago</label>
             <select name="typeP" [(ngModel)]="typeP">
                 <option value="luz" selected>Luz</option>
-                <option value="agua">Agua</option>
-                <option value="telefono">Teléfono</option>
-                <option value="Internet">Internet</option>
+                <option value="agua">Agua Potable</option>
             </select>
         </p>
         <p>
             <label *ngIf="transaction.type=='Pago'">
-                <label for="identification" *ngIf="typeP=='luz' || typeP=='agua'">Número de medidor</label>
-            <label for="identification" *ngIf="typeP=='telefono'">Teléfono convencional</label>
-            <label for="identification" *ngIf="typeP=='Internet'">Número de contrato</label>
+                <label for="identification">Número de medidor</label>
             </label>
             <label for="identification" *ngIf="transaction.type!='Pago'">Documento de identificacion</label>
-            <input type="text" name="identification" #identification="ngModel" [(ngModel)]="transaction.identification" required>
+            <input type="text" name="identification" #identification="ngModel" [(ngModel)]="transaction.identification"
+                required>
             <span class="form-error" *ngIf="identification.touched && !identification.valid">*Campo obligatorio</span>
         </p>
 
@@ -44,18 +41,24 @@
             <span class="form-error" *ngIf="account.touched && !account.valid">*Campo obligatorio</span>
         </p>
 
-        <p>
+        <p *ngIf="transaction.type!='Pago'">
             <label for="mont">Monto</label>
             <input type="number" name="mont" #mont="ngModel" [(ngModel)]="transaction.mont">
         </p>
 
-        <input type="submit" value="Enviar" [disabled]="!transactionForm.form.valid || showT == 'success'">
+        <p *ngIf="transaction.type!='Pago'">
+            <input type="submit" value="Enviar" [disabled]="!transactionForm.form.valid || showT == 'success'">
+        </p>
+
+        <p *ngIf="transaction.type=='Pago'">
+            <input type="button" class="button" (click)="openModal(transaction.identification);" value="Consultar" />
+        </p>
 
         <div *ngIf="showT == 'success'">
             <input type="button" class="button" value="Nueva transaccion" (click)="newTransaction(transactionForm)">
         </div>
     </form>
-    <div *ngIf="showT == 'success' || showT == 'successRetiro'">
+    <div *ngIf="showT == 'success'">
         <mat-card class="transaction">
             <h2>
                 <img src={{img}} height="27px" alt="LogoBancoBanquito" />

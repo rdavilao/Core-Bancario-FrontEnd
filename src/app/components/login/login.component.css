@@ -1,0 +1,44 @@
+.example-card {
+    margin: 0 auto;
+    max-width: 450px;
+    padding: 50px;
+    padding-top: 30px;
+}
+
+form {
+    width: 100%;
+}
+
+form label {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+form input[type="text"],
+form input[type="password"],
+form textarea {
+    width: 97%;
+    padding: 5px;
+}
+
+form button,
+form input[type="submit"] {
+    display: block;
+    font-size: 17px;
+    padding: 5px;
+    margin-top: 15px;
+    color: white;
+    background: rgba(63, 81, 181, 1);
+    border: 1px solid rgba(43, 41, 105, 1);
+}
+
+.button {
+    font-size: 17px;
+    padding: 5px;
+    margin-top: 15px;
+    margin-left: 43%;
+    color: white;
+    background: rgba(63, 81, 181, 1);
+    border: 1px solid rgba(43, 41, 105, 1);
+}
