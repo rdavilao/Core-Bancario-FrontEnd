@@ -21,6 +21,8 @@ import { AccountListComponent } from './components/accounts/account-list/account
 import { CreditCardUpdateComponent } from './components/creditCard/credit-card-update/credit-card-update.component';
 import { CreditCardComponent } from './components/creditCard/credit-card/credit-card.component';
 import { CreditCardListComponent } from './components/creditCard/credit-card-list/credit-card-list.component';
+import { BasicServicesComponent } from './components/transactions/basic-services/basic-services.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { CreditCardListComponent } from './components/creditCard/credit-card-lis
     AccountListComponent,
     CreditCardUpdateComponent,
     CreditCardComponent,
-    CreditCardListComponent
+    CreditCardListComponent,
+    BasicServicesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
