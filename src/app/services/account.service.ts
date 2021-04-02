@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Account } from '../models/account';
 import { urlAccount } from '../../environments/environment';
 
-const headers = new HttpHeaders().set('Content-Type', 'application/json');
+const headers = new HttpHeaders().set('Authorization', localStorage.getItem('token'));
 
 @Injectable()
 export class AccountService {

@@ -1,0 +1,18 @@
+<mat-card class="example-card">
+    <img mat-card-image src="../../../assets/logo-bb-3.jpeg" alt="Logo Banco Banquito" style="height: 170px;">
+    <mat-card-content>
+        <form #loginForm="ngForm">
+            <p>
+                <label for="user">Usuario</label>
+                <input type="text" name="user" id="user" ngModel required>
+            </p>
+            <p>
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" ngModel required>
+            </p>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <input type="button" class="button" value="Ingresar" (click)="login(loginForm)" />
+    </mat-card-actions>
+</mat-card>

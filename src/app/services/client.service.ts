@@ -5,7 +5,7 @@ import { Client } from '../models/client/client';
 import { urlClient } from '../../environments/environment';
 
 const headersConsultas = new HttpHeaders().set('Authorization', localStorage.getItem('tokenConsultas'));
-const headers = new HttpHeaders().set('Content-Type', 'application/json');
+const headers = new HttpHeaders().set('Authorization', localStorage.getItem('token'));
 const bbConsultas = 'http://52.250.12.217:';
 
 @Injectable()

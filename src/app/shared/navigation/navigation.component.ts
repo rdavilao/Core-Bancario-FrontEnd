@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ConsultasLoginService } from 'src/app/services/consultas-login.service';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnChanges {
+  @Input() someInput: string;
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -17,9 +18,16 @@ export class NavigationComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private consultasLogin: ConsultasLoginService) {
-    consultasLogin.login().subscribe((res) =>
-      localStorage.setItem('tokenConsultas', res.token)
-    );
+  constructor(private breakpointObserver: BreakpointObserver) {
+  }
+
+  ngOnChanges(): void {
+    console.log(this.someInput);
+  }
+
+  exit(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenConsultas');
+    window.location.reload();
   }
 }

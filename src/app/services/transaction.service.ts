@@ -5,7 +5,7 @@ import { Transaction } from '../models/transaction';
 import { urlTransaction } from '../../environments/environment';
 
 const headersConsultas = new HttpHeaders().set('Authorization', localStorage.getItem('tokenConsultas'));
-const headers = new HttpHeaders().set('Content-Type', 'application/json');
+const headers = new HttpHeaders().set('Authorization', localStorage.getItem('token'));
 
 @Injectable()
 export class TransactionService {
@@ -39,7 +39,8 @@ export class TransactionService {
     }
 
     payMonthPlanillaElectrica(medidor: string): Observable<any> {
-        return this.http.put('http://52.250.12.217:8085/api/bbConsultas/electrica?medidor=' + medidor, { header: headersConsultas });
+        return this.http.put('http://52.250.12.217:8085/api/bbConsultas/electrica/updateMonto?medidor=' +
+        medidor, { header: headersConsultas });
     }
 
     getMontPlanillaAguaPotable(medidor: string): Observable<any> {
@@ -47,6 +48,7 @@ export class TransactionService {
     }
 
     payMonthPlanillaAguaPotable(medidor: string): Observable<any> {
-        return this.http.put('http://52.250.12.217:8084/api/bbConsultas/aguaPotable?medidor=' + medidor, { header: headersConsultas });
+        return this.http.put('http://52.250.12.217:8084/api/bbConsultas/aguaPotable/updateMonto?medidor=' +
+        medidor, { header: headersConsultas });
     }
 }

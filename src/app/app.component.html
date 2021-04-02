@@ -1,3 +1,8 @@
-<app-navigation>
-
-</app-navigation>
+<div *ngIf="token != null">
+    <app-navigation [someInput]="inputValue">
+    </app-navigation>
+</div>
+<div *ngIf="token == null">
+    <app-login [someInput]="inputValue">
+    </app-login>
+</div>

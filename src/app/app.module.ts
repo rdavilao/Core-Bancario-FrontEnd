@@ -22,6 +22,7 @@ import { CreditCardUpdateComponent } from './components/creditCard/credit-card-u
 import { CreditCardComponent } from './components/creditCard/credit-card/credit-card.component';
 import { CreditCardListComponent } from './components/creditCard/credit-card-list/credit-card-list.component';
 import { BasicServicesComponent } from './components/transactions/basic-services/basic-services.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { BasicServicesComponent } from './components/transactions/basic-services
     CreditCardUpdateComponent,
     CreditCardComponent,
     CreditCardListComponent,
-    BasicServicesComponent
+    BasicServicesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
