@@ -56,15 +56,18 @@ export class CreditCardComponent {
       this.account.CLIENT_IDENTIFICATION = this.identification;
       this.accountService.saveAccount(this.account).subscribe(
         response => {
+          console.log(response);
           this.accountService.getLastAccountByIdentification(this.identification).subscribe(
             res => {
               this.creditCardService.saveCreditCard(parseInt(res.codigo, 10), 200).subscribe(
                 respon => {
+                  console.log(respon);
                   this.showA = 'success';
                   setTimeout(() => {
                     this.showA = '';
                   }, 1500);
                 }, error => {
+                  console.log(error);
                   this.showA = 'failed';
                 }
               );
@@ -72,6 +75,7 @@ export class CreditCardComponent {
           );
         },
         error => {
+          console.log(error);
           this.showA = 'failed';
         }
       );

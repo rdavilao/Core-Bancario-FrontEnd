@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { urlLoginCore } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,6 @@ export class LoginService {
       username,
       pwd
     };
-    return this.http.post('http://34.193.109.78:8084/api/corebancario/seguridad/login', body);
+    return this.http.post(urlLoginCore, body);
   }
 }

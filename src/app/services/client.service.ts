@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Client } from '../models/client/client';
-import { urlClient } from '../../environments/environment';
+import { urlClient, urlbbConsultas } from '../../environments/environment';
 
 const headersConsultas = new HttpHeaders().set('Authorization', localStorage.getItem('tokenConsultas'));
 const headers = new HttpHeaders().set('Authorization', localStorage.getItem('token'));
-const bbConsultas = 'http://52.250.12.217:';
 
 @Injectable()
 export class ClientService {
@@ -26,16 +25,16 @@ export class ClientService {
     }
 
     validatorListaObservado(identification: string): Observable<any> {
-        return this.http.get(bbConsultas + '8083/api/bbConsultas/listaObservado?identificacion=' + identification +
+        return this.http.get(urlbbConsultas + '8083/api/bbConsultas/listaObservado?identificacion=' + identification +
         '&nombreCompleto=&paisNacimiento=', { headers: headersConsultas });
     }
 
     validatorExistenceSRI(identification: string): Observable<any> {
-        return this.http.get(bbConsultas + '8081/api/bbConsultas/sri/contribuyente/' + identification, { headers: headersConsultas });
+        return this.http.get(urlbbConsultas + '8081/api/bbConsultas/sri/contribuyente/' + identification, { headers: headersConsultas });
     }
 
     validatorExistenceRC(identification: string): Observable<any> {
-        return this.http.get(bbConsultas + '8080/api/bbConsultas/regCivil/persona/' + identification, { headers: headersConsultas });
+        return this.http.get(urlbbConsultas + '8080/api/bbConsultas/regCivil/persona/' + identification, { headers: headersConsultas });
     }
 
     validatorExistenceBB(identification: string): Observable<any> {
@@ -43,11 +42,11 @@ export class ClientService {
     }
 
     getProvince(): Observable<any> {
-        return this.http.get(bbConsultas + '8081/api/bbConsultas/sri/ubicacion/tipo/PROVINCIA', { headers: headersConsultas });
+        return this.http.get(urlbbConsultas + '8081/api/bbConsultas/sri/ubicacion/tipo/PROVINCIA', { headers: headersConsultas });
     }
 
     getUbication(reference: string, type: string): Observable<any> {
-        return this.http.get(bbConsultas + '8081/api/bbConsultas/sri/ubicacion/tipo?referencia=' + reference +
+        return this.http.get(urlbbConsultas + '8081/api/bbConsultas/sri/ubicacion/tipo?referencia=' + reference +
         '&tipo=' + type + '', { headers: headersConsultas });
     }
 

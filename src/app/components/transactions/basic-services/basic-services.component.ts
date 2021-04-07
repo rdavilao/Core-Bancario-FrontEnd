@@ -56,7 +56,14 @@ export class BasicServicesComponent implements OnInit {
         res => {
           console.log(res);
           this.validation = 'Pago realizado correctamente.';
-          this.transactionService.saveTransaction(this.transaction).subscribe();
+          this.transactionService.saveTransaction(this.transaction).subscribe(
+            response => {
+              console.log(response);
+            },
+            error => {
+              console.log(error);
+            }
+          );
         }
       );
     } else {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { bodyConsultas, urlbbConsultas } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,6 @@ export class ConsultasLoginService {
   ) { }
 
   login(): Observable<any> {
-    const body = {
-      password: 'espe123.',
-      username: 'haaltamirano'
-    };
-    return this.http.post('http://52.250.12.217:8086/api/bbConsultas/login', body);
+    return this.http.post(urlbbConsultas + '8086/api/bbConsultas/login', bodyConsultas);
   }
 }

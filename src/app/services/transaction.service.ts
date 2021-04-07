@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Transaction } from '../models/transaction';
-import { urlTransaction } from '../../environments/environment';
+import { urlTransaction, urlbbConsultas } from '../../environments/environment';
 
 const headersConsultas = new HttpHeaders().set('Authorization', localStorage.getItem('tokenConsultas'));
 const headersCore = new HttpHeaders()
@@ -39,20 +39,20 @@ export class TransactionService {
     }
 
     getMontPlanillaElectrica(medidor: string): Observable<any> {
-        return this.http.get('http://52.250.12.217:8085/api/bbConsultas/electrica/' + medidor, { headers: headersConsultas });
+        return this.http.get(urlbbConsultas + '8085/api/bbConsultas/electrica/' + medidor, { headers: headersConsultas });
     }
 
     payMonthPlanillaElectrica(medidor: string): Observable<any> {
-        return this.http.put('http://52.250.12.217:8085/api/bbConsultas/electrica/updateMonto?medidor=' +
-            medidor, { header: headersConsultas });
+        return this.http.put(urlbbConsultas + '8085/api/bbConsultas/electrica/updateMonto?medidor=' +
+        medidor, { header: headersConsultas });
     }
 
     getMontPlanillaAguaPotable(medidor: string): Observable<any> {
-        return this.http.get('http://52.250.12.217:8084/api/bbConsultas/aguaPotable/' + medidor, { headers: headersConsultas });
+        return this.http.get(urlbbConsultas + '8084/api/bbConsultas/aguaPotable/' + medidor, { headers: headersConsultas });
     }
 
     payMonthPlanillaAguaPotable(medidor: string): Observable<any> {
-        return this.http.put('http://52.250.12.217:8084/api/bbConsultas/aguaPotable/updateMonto?medidor=' +
+        return this.http.put(urlbbConsultas + '8084/api/bbConsultas/aguaPotable/updateMonto?medidor=' +
             medidor, { header: headersConsultas });
     }
 }
