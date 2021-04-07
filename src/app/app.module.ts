@@ -51,7 +51,7 @@ import { LoginComponent } from './components/login/login.component';
     BrowserAnimationsModule,
     SharedStyleModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     appRoutingProviders

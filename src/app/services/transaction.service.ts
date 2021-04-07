@@ -5,7 +5,9 @@ import { Transaction } from '../models/transaction';
 import { urlTransaction } from '../../environments/environment';
 
 const headersConsultas = new HttpHeaders().set('Authorization', localStorage.getItem('tokenConsultas'));
-const headers = new HttpHeaders().set('Authorization', localStorage.getItem('token'));
+const headersCore = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('Authorization', localStorage.getItem('token'));
 
 @Injectable()
 export class TransactionService {
@@ -17,21 +19,23 @@ export class TransactionService {
 
     saveTransaction(transaction: Transaction): Observable<any> {
         const params = JSON.stringify(transaction);
-        return this.http.post(urlTransaction + '/create', params, { headers });
+        console.log(params);
+        return this.http.post(urlTransaction + '/create', params, { headers: headersCore });
     }
 
     saveTransactionTC(transaction: Transaction): Observable<any> {
         const params = JSON.stringify(transaction);
-        return this.http.post(urlTransaction + '/cardPayment', params, { headers });
+        return this.http.post(urlTransaction + '/cardPayment', params, { headers: headersCore });
     }
 
     getTransactions(identification: string, limit: number): Observable<any> {
-        return this.http.get(urlTransaction + '/listXLastTransactions?account=' + identification + '&limit=' + limit, { headers });
+        return this.http.get(urlTransaction + '/listXLastTransactions?account=' + identification +
+            '&limit=' + limit, { headers: headersCore });
     }
 
     getTransactionsByType(identification: string, limit: number, type: string): Observable<any> {
         return this.http.get(urlTransaction + '/listXLastTransactionsByType?account=' +
-            identification + '&limit=' + limit + '&type=' + type, { headers });
+            identification + '&limit=' + limit + '&type=' + type, { headers: headersCore });
     }
 
     getMontPlanillaElectrica(medidor: string): Observable<any> {
@@ -40,7 +44,7 @@ export class TransactionService {
 
     payMonthPlanillaElectrica(medidor: string): Observable<any> {
         return this.http.put('http://52.250.12.217:8085/api/bbConsultas/electrica/updateMonto?medidor=' +
-        medidor, { header: headersConsultas });
+            medidor, { header: headersConsultas });
     }
 
     getMontPlanillaAguaPotable(medidor: string): Observable<any> {
@@ -49,6 +53,6 @@ export class TransactionService {
 
     payMonthPlanillaAguaPotable(medidor: string): Observable<any> {
         return this.http.put('http://52.250.12.217:8084/api/bbConsultas/aguaPotable/updateMonto?medidor=' +
-        medidor, { header: headersConsultas });
+            medidor, { header: headersConsultas });
     }
 }

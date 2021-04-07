@@ -14,8 +14,12 @@ import { ClientUpdateComponent } from '../client-update/client-update.component'
 })
 export class ClientListComponent implements AfterViewInit {
 
-  public typeClient: string;
+  public options: string;
   public title: string;
+  public identification: string;
+  public birthdate: string;
+  public province: string;
+  public provinces: [];
   displayedColumns: string[];
   dataSourceClient = new MatTableDataSource();
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -26,14 +30,15 @@ export class ClientListComponent implements AfterViewInit {
     public dialog: MatDialog
   ) {
     this.title = 'Listado de clientes';
-    this.typeClient = '';
+    this.options = '1';
+    this.provinces = this.loadProvinces();
   }
 
   openDialog(identification: string): void {
     const dialogRef = this.dialog.open(ClientUpdateComponent);
 
     dialogRef.componentInstance.identification = identification;
-    if (this.typeClient === 'Natural') {
+    if (identification.length === 10) {
       dialogRef.componentInstance.isContributor = false;
     } else {
       dialogRef.componentInstance.isContributor = true;
@@ -57,15 +62,44 @@ export class ClientListComponent implements AfterViewInit {
   }
 
   onSubmit(): void {
-    this.clientService.getClientsByType(this.typeClient).subscribe(
+    console.log(this.options);
+    if (this.options === '1') {
+      const client = [];
+      this.clientService.getClientById(this.identification).subscribe(
+        res => {
+          client.push(res);
+          this.dataSourceClient.data = client;
+        }
+      );
+    } else if (this.options === '2') {
+      this.clientService.getClientsByProvince(this.province).subscribe(
+        res => {
+          this.dataSourceClient.data = res;
+        }
+      );
+    } else {
+      this.birthdate += 'T00:00:00Z';
+      this.clientService.getClientsByBirthdate(this.birthdate).subscribe(
+        res => {
+          this.dataSourceClient.data = res;
+        }
+      );
+    }
+    /*this.displayedColumns = ['identification', 'bussinessName',
+    //'tradeName', 'legalRepresentative', 'email', 'addresses',
+    //'phones', 'actionsClientList'];*/
+    this.displayedColumns = ['identification', 'names', 'surnames', 'email', 'addresses', 'phones', 'actionsClientList'];
+  }
+
+  loadProvinces(): any {
+    const provincesClient = new Array<string>();
+    this.clientService.getProvince().subscribe(
       response => {
-        this.dataSourceClient.data = response;
+        for (const item of response) {
+          provincesClient.push(item);
+        }
       }
     );
-    if (this.typeClient === 'Juridico') {
-      this.displayedColumns = ['identification', 'bussinessName', 'tradeName', 'legalRepresentative', 'email', 'addresses', 'phones', 'actionsClientList'];
-    } else {
-      this.displayedColumns = ['identification', 'names', 'surnames', 'email', 'addresses', 'phones', 'actionsClientList'];
-    }
+    return provincesClient;
   }
 }
