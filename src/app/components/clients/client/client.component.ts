@@ -233,18 +233,20 @@ export class ClientComponent {
     return provincesClient;
   }
 
-  loadCantones(province): void {
+  loadCantones(province: string): void {
     this.cantonesClient = new Array<string>();
+    console.log(province);
     this.clientService.getUbication(province, 'CANTON').subscribe(
       response => {
         for (const item of response) {
           this.cantonesClient.push(item);
         }
+        console.log(this.cantonesClient);
       }
     );
   }
 
-  loadParish(canton): void {
+  loadParish(canton: string): void {
     this.parishesClient = new Array<string>();
     this.clientService.getUbication(canton, 'PARROQUIA').subscribe(
       response => {

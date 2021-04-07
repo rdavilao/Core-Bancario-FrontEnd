@@ -20,10 +20,11 @@ export class LoginComponent implements OnChanges {
     this.loginService.login(form.form.value.user, form.form.value.password).subscribe(
       res => {
         localStorage.setItem('token', res.token);
-        window.location.reload();
-        this.consultasService.login().subscribe((resConsultas) =>
-          localStorage.setItem('tokenConsultas', resConsultas.token)
-        );
+        localStorage.setItem('role', res.role);
+        this.consultasService.login().subscribe((resConsultas) => {
+          localStorage.setItem('tokenConsultas', resConsultas.token);
+          window.location.reload();
+        });
       }
     );
   }

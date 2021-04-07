@@ -17,7 +17,8 @@
     <form #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
         <p>
             <label for="identification">Documento de identificación</label>
-            <input type="text" name="identification" #identification="ngModel" [(ngModel)]="client.identification" required>
+            <input type="text" name="identification" #identification="ngModel" [(ngModel)]="client.identification"
+                required>
             <input type="button" class="button" (click)="validator();" value="Validar" />
             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <img *ngIf="img != ''" src={{img}} height="35px" alt="Check\Validator" />
@@ -42,11 +43,13 @@
                 </p>
                 <p>
                     <label for="mainStreetClient">Calle principal</label>
-                    <input type="text" name="mainStreet" #mainStreet="ngModel" [(ngModel)]="address.mainStreet" required>
+                    <input type="text" name="mainStreet" #mainStreet="ngModel" [(ngModel)]="address.mainStreet"
+                        required>
                 </p>
                 <p>
                     <label for="sideStreetClient">Calle secundaria</label>
-                    <input type="text" name="sideStreet" #sideStreet="ngModel" [(ngModel)]="address.sideStreet" required>
+                    <input type="text" name="sideStreet" #sideStreet="ngModel" [(ngModel)]="address.sideStreet"
+                        required>
                 </p>
                 <p>
                     <label for="numberClient">Número</label>
@@ -58,16 +61,18 @@
                 </p>
                 <p>
                     <label for="provinceClient">Provincia</label>
-                    <select name="province" #province="ngModel" [(ngModel)]="address.province" (change)='loadCantones($event.target.value)'>
-                    <option *ngFor="let province of provinces" value="{{province.nombre}}">
-                        {{province.nombre}}
-                    </option>
-                </select>
+                    <select name="province" #province="ngModel" [(ngModel)]="address.province"
+                        (change)='loadCantones($event.target.value)'>
+                        <option *ngFor="let province of provinces" value="{{province.nombre}}">
+                            {{province.nombre}}
+                        </option>
+                    </select>
                 </p>
                 <p>
                     <label for="cantonClient">Cantón</label>
-                    <select name="canton" #canton="ngModel" [(ngModel)]="address.canton" (change)='loadParish($event.target.value)'>
-                        <option *ngFor="let canton of cantones" value="{{canton.nombre}}">
+                    <select name="canton" #canton="ngModel" [(ngModel)]="address.canton"
+                        (change)='loadParish($event.target.value)'>
+                        <option *ngFor="let canton of cantonesClient" value="{{canton.nombre}}">
                             {{canton.nombre}}
                         </option>
                     </select>
@@ -75,12 +80,13 @@
                 <p>
                     <label for="parishClient">Parroquia</label>
                     <select name="parish" #parish="ngModel" [(ngModel)]="address.parish">
-                        <option *ngFor="let parro of parishes" value="{{parro.nombre}}">
+                        <option *ngFor="let parro of parishesClient" value="{{parro.nombre}}">
                             {{parro.nombre}}
                         </option>
                     </select>
                 </p>
-                <input type="button" class="button" (click)="addAddress(addressForm);" value="Agregar" [disabled]="!addressForm.form.valid" />
+                <input type="button" class="button" (click)="addAddress(addressForm);" value="Agregar"
+                    [disabled]="!addressForm.form.valid" />
             </form>
         </div>
 
@@ -98,11 +104,13 @@
                 <label for="value">Número</label>
                 <input type="text" name="value" #value="ngModel" [(ngModel)]="phone.value" required>
             </p>
-            <input type="button" class="button" (click)="addPhones(phoneForm);" value="Agregar" [disabled]="!phoneForm.form.valid" />
+            <input type="button" class="button" (click)="addPhones(phoneForm);" value="Agregar"
+                [disabled]="!phoneForm.form.valid" />
         </form>
 
 
         <p class="spacer"></p>
-        <input type="submit" value="Enviar" [disabled]="validatorMensaje!='' || !clientForm.form.valid" style="margin-left: 50%;">
+        <input type="submit" value="Enviar" [disabled]="validatorMensaje!='' || !clientForm.form.valid"
+            style="margin-left: 50%;">
     </form>
 </div>

@@ -10,6 +10,7 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class NavigationComponent implements OnChanges {
   @Input() someInput: string;
+  role = localStorage.getItem('role');
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)

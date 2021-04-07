@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { urlCreditCard } from '../../environments/environment';
 
-const headers = new HttpHeaders().set('Content-Type', 'application/json');
+const headers = new HttpHeaders().set('Authorization', localStorage.getItem('token'));
 
 @Injectable()
 export class CreditCardService {

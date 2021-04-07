@@ -39,7 +39,6 @@ export class TransactionComponent {
     this.transaction.description = 'La persona con ci: ' + this.transaction.identification +
       ' realizó un ' + this.transaction.type + ' de ' + this.typeP + ' con valor de '
       + this.transaction.mont + ' a la cuenta ' + this.transaction.account;
-    this.transaction.account = '270000000001';
     this.transactionService.saveTransaction(this.transaction).subscribe(
       response => {
         if (response == null) {

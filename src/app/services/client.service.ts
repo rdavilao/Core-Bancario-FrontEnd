@@ -55,6 +55,14 @@ export class ClientService {
         return this.http.get(urlClient + '/findClientByType/' + type, { headers });
     }
 
+    getClientsByBirthdate(birthdate: string): Observable<any> {
+        return this.http.get(urlClient + '/findClientByBirthdate/' + birthdate, { headers });
+    }
+
+    getClientsByProvince(province: string): Observable<any> {
+        return this.http.get(urlClient + '/findClientByProvince/' + province, { headers });
+    }
+
     updateClient(client: Client): Observable<any> {
         const params = JSON.stringify(client);
         return this.http.put(urlClient + '/update', params, { headers });
